@@ -11,13 +11,13 @@ dayjs.extend(utc)
 dayjs.extend(timezone)
 
 const DatePicker = () => {
-  const storedStartDate = store.get('startDate') || '2022/02/01'
-  const storedEndDate = store.get('endDate') || '2022/02/07'
+  const storedStartDate = store.get('startDate') || '2022-02-08'
+  const storedEndDate = store.get('endDate') || dayjs(storedStartDate).add(6, 'd').format('YYYY-MM-DD')
   const [startDate, setStartDate] = useState(storedStartDate)
   const [endDate, setEndDate] = useState(storedEndDate)
 
   const formatDate = (date: Date) => {
-    return dayjs(date).tz('Asia/Seoul').format('YYYY/MM/DD')
+    return dayjs(date).tz('Asia/Seoul').format('YYYY-MM-DD')
   }
 
   return (
@@ -31,23 +31,23 @@ const DatePicker = () => {
         }}
         selectsStart
         startDate={new Date(startDate)}
-        endDate={new Date(endDate)}
-        minDate={new Date('2022/02/01')}
+        endDate={new Date(dayjs(startDate).add(6, 'd').format('YYYY-MM-DD'))}
+        minDate={new Date('2022-02-08')}
+        maxDate={new Date('2022-04-14')}
         dateFormat='yyyy년 MM월 dd일'
       />
       <p className={styles.p}>~</p>
       <ReactDatePicker
         className={styles.datePicker}
-        selected={new Date(endDate)}
+        selected={new Date(dayjs(startDate).add(6, 'd').format('YYYY-MM-DD'))}
         onChange={(date: Date) => {
-          setEndDate(date)
-          store.set('endDate', formatDate(date))
+          if (dayjs(date) <= dayjs(startDate).add(6, 'd')) {
+            setEndDate(date)
+            store.set('endDate', formatDate(date))
+          }
         }}
         selectsEnd
-        startDate={new Date(startDate)}
-        endDate={new Date(endDate)}
-        minDate={new Date(startDate)}
-        maxDate={new Date('2022/04/20')}
+        disabled
         dateFormat='yyyy년 MM월 dd일'
       />
     </>

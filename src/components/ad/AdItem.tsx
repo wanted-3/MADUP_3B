@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Iads } from 'states/adListData'
 import styles from './adItem.module.scss'
 
@@ -6,11 +7,29 @@ interface AdItemProps {
 }
 
 const AdItem = ({ ad }: AdItemProps) => {
-  // console.log(ad)
+  const { adType, title, startDate, endDate, status } = ad
+
+  const adTitle = useMemo(() => {
+    let adTypeName
+
+    if (adType === 'web') {
+      adTypeName = '웹광고'
+    }
+
+    if (adType === 'app') {
+      adTypeName = '앱광고'
+    }
+
+    return `${adTypeName}_${title}`
+  }, [adType, title])
+
+  const adDate = useMemo(() => {
+    return status === 'ended' ? `${startDate}(${endDate})` : startDate
+  }, [status, startDate, endDate])
 
   return (
     <div className={styles.containerWrapper}>
-      <h2 className={styles.title}>{ad.adType}_2021123123</h2>
+      <h2 className={styles.title}>{adTitle}</h2>
 
       <dl>
         <div>
@@ -20,7 +39,7 @@ const AdItem = ({ ad }: AdItemProps) => {
 
         <div>
           <dt>광고 생성일</dt>
-          <dd>{ad.startDate}</dd>
+          <dd>{adDate}</dd>
         </div>
 
         <div>

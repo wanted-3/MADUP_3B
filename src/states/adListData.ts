@@ -92,8 +92,12 @@ const INITIAL_STATE: SystemState = {
 
 const systemSlice = createSlice({
   name: 'adListData',
-  initialState: INITIAL_STATE,
+  initialState: {} as SystemState,
   reducers: {
+    firstTemp: (state, action) => {
+      state.value = action.payload
+    },
+
     adListDataState: (state, action) => {
       state.value.ads = INITIAL_STATE.value.ads.filter((item) => item.status === action.payload)
     },
@@ -102,7 +106,7 @@ const systemSlice = createSlice({
   },
 })
 
-export const { adListDataState, resetAdListData } = systemSlice.actions
+export const { firstTemp, adListDataState, resetAdListData } = systemSlice.actions
 
 export default systemSlice.reducer
 

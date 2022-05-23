@@ -51,7 +51,7 @@ const AdList = () => {
         </div>
 
         <div className={styles.itemGrid}>
-          {adListData.ads.map((ad) => (
+          {adListData?.ads.map((ad) => (
             <AdItem key={ad.id} ad={ad} />
           ))}
         </div>

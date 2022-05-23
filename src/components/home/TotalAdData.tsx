@@ -4,10 +4,10 @@ import styles from './totalAdData.module.scss'
 import { useState, ChangeEvent } from 'react'
 import { useAppSelector } from 'hooks/useAppSelector'
 
-import { temp, testReduce, trendData } from 'states/dailyTrendData'
+import { trendDataSum, trendData } from 'states/dailyTrendData'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { getTrendDataApi } from 'services/temp'
-import { useMount } from 'react-use'
+import dayjs from 'dayjs'
 
 // 매출 = ROAS / 100 * 광고비
 const titles = ['ROAS', '광고비', '노출수', '클릭수', '전환수', '매출']
@@ -50,15 +50,25 @@ const TotalAdData = () => {
   }
 
   const handleTest = () => {
-    dispatch(testReduce('2022-02-21'))
-  }
+    const startD = dayjs('2022-02-05')
+    const endD = dayjs('2022-02-06')
+    const tstartDate = startD.subtract(endD.diff(startD, 'day') + 1, 'day').format('YYYY-MM-DD')
+    const tendDate = endD.subtract(endD.diff(startD, 'day') + 1, 'day').format('YYYY-MM-DD')
+    console.log(startD, endD, tstartDate, tendDate)
 
-  useMount(() => {
     getTrendDataApi().then((res) => {
-      dispatch(temp(res.data))
+      // const dailyMap = new Map(res.data.report.daily.map((day) => [day.date, day]))
+      dispatch(
+        trendDataSum({
+          data: res.data,
+          startDate: startD.format('YYYY-MM-DD'),
+          endDate: endD.format('YYYY-MM-DD'),
+          prevStart: tstartDate,
+          prevEnd: tendDate,
+        })
+      )
     })
-  })
-  console.log(`tdr:`, trendDataResult)
+  }
 
   return (
     <section className={styles.totalAdData}>
@@ -68,36 +78,12 @@ const TotalAdData = () => {
           get data
         </button>
         <div className={styles.chartDescription}>
-          <AdData
-            title='ROAS'
-            data={trendDataResult?.report.daily[0].roas}
-            result={trendDataResult?.report.daily[0].roas}
-          />
-          <AdData
-            title='광고비'
-            data={trendDataResult?.report.daily[0].cost}
-            result={trendDataResult?.report.daily[0].cost}
-          />
-          <AdData
-            title='노출수'
-            data={trendDataResult?.report.daily[0].imp}
-            result={trendDataResult?.report.daily[0].imp}
-          />
-          <AdData
-            title='클릭수'
-            data={trendDataResult?.report.daily[0].click}
-            result={trendDataResult?.report.daily[0].click}
-          />
-          <AdData
-            title='전환수'
-            data={trendDataResult?.report.daily[0].conv}
-            result={trendDataResult?.report.daily[0].conv}
-          />
-          <AdData
-            title='매출'
-            data={trendDataResult?.report.daily[0].convValue}
-            result={trendDataResult?.report.daily[0].convValue}
-          />
+          <AdData title='ROAS' data={trendDataResult.roas} result={trendDataResult.tRoas} />
+          <AdData title='광고비' data={trendDataResult.cost} result={trendDataResult.tCost} />
+          <AdData title='노출수' data={trendDataResult.imp} result={trendDataResult.tImp} />
+          <AdData title='클릭수' data={trendDataResult.click} result={trendDataResult.tClick} />
+          <AdData title='전환수' data={trendDataResult.conv} result={trendDataResult.tConv} />
+          <AdData title='매출' data={trendDataResult.convValue} result={trendDataResult.tConvValue} />
         </div>
         <div className={styles.chartOptionSelectors}>
           <select name='option1' className={styles.optionSelector1} onChange={handleSelectOption}>

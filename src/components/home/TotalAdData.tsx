@@ -1,7 +1,9 @@
 import AdData from './AdData'
 import styles from './totalAdData.module.scss'
 
-import TREND_DATA from '../../trend-data.json'
+import { useState, ChangeEvent } from 'react'
+import { useAppSelector } from 'hooks/useAppSelector'
+import { trendData } from 'states/dailyTrendData'
 
 // 매출 = ROAS / 100 * 광고비
 const titles = ['ROAS', '광고비', '노출수', '클릭수', '전환수', '매출']
@@ -30,6 +32,19 @@ const dataStructure = [
 // },
 
 const TotalAdData = () => {
+  const [selectOptions, setSelectOptions] = useState<string[]>([])
+  const [isDisable, setIsDisable] = useState(false)
+  const trendDataResult = useAppSelector(trendData)
+
+  const handleSelectOption = (e: ChangeEvent<HTMLSelectElement>) => {
+    const selected = e.currentTarget
+    if (selectOptions.includes(selected.value)) {
+      console.log()
+    }
+    setSelectOptions((prev) => [...prev, e.currentTarget.value])
+  }
+  console.log(`tdr:`, trendDataResult)
+
   return (
     <section className={styles.totalAdData}>
       <h2 className={styles.title}>통합광고현황</h2>
@@ -41,21 +56,29 @@ const TotalAdData = () => {
           })}
         </div>
         <div className={styles.chartOptionSelectors}>
-          <select name='option1' className={styles.optionSelector1}>
-            <option value='ROAS'>ROAS</option>
-            <option value='광고비'>광고비</option>
-            <option value='노출수'>노출수</option>
-            <option value='클릭수'>클릭수</option>
-            <option value='전환수'>전환수</option>
-            <option value='매출'>매출</option>
+          <select name='option1' className={styles.optionSelector1} onChange={handleSelectOption}>
+            {titles
+              .filter((title) => !selectOptions.includes(title))
+              .map((v, idx) => {
+                const key = `${v}-data${idx}`
+                return (
+                  <option key={key} value={v}>
+                    {v}
+                  </option>
+                )
+              })}
           </select>
-          <select name='option2' className={styles.optionSelector2}>
-            <option value='ROAS'>ROAS</option>
-            <option value='광고비'>광고비</option>
-            <option value='노출수'>노출수</option>
-            <option value='클릭수'>클릭수</option>
-            <option value='전환수'>전환수</option>
-            <option value='매출'>매출</option>
+          <select name='option2' className={styles.optionSelector2} onChange={handleSelectOption}>
+            {titles
+              .filter((title) => !selectOptions.includes(title))
+              .map((v, idx) => {
+                const key = `${v}-data${idx}`
+                return (
+                  <option key={key} value={v}>
+                    {v}
+                  </option>
+                )
+              })}
           </select>
           <select name='option3' className={styles.termSelector}>
             <option value='주간'>주간</option>

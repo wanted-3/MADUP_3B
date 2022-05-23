@@ -15,8 +15,10 @@
       font-size: 26px;
     }
 
-    // .datePicker {
-    //   width: 228px;
-    // }
+    .datePicker {
+      display: flex;
+      width: 228px;
+      background-color: pink;
+    }
   }
 }

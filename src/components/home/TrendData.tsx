@@ -1,4 +1,4 @@
-import styles from "./trendData.module.scss";
+import styles from './trendData.module.scss'
 
 const TrendData = () => {
   return (
@@ -95,7 +95,7 @@ const TrendData = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TrendData;
+export default TrendData

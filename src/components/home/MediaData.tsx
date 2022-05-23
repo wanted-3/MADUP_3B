@@ -122,12 +122,15 @@ const MediaData = () => {
             <span>클릭률 (CTR)</span>
             <span>클릭당비용 (CPC)</span>
           </div>
-
-          <MediaSumData title='페이스북' {...temp1.facebook} />
-          <MediaSumData title='구글' {...temp1.google} />
-          <MediaSumData title='네이버' {...temp1.naver} />
-          <MediaSumData title='카카오' {...temp1.kakao} />
-          <MediaSumData title='합계' {...temp1.all} />
+          <div>
+            <MediaSumData title='페이스북' {...temp1.facebook} />
+            <MediaSumData title='구글' {...temp1.google} />
+            <MediaSumData title='네이버' {...temp1.naver} />
+            <MediaSumData title='카카오' {...temp1.kakao} />
+            <div className={styles.total}>
+              <MediaSumData title='합계' {...temp1.all} />
+            </div>
+          </div>
         </div>
       </div>
     </div>

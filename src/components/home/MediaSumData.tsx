@@ -9,13 +9,13 @@ const MediaSumData = ({ title, cost, convValue, roas, imp, click, ctr, cpc }: Me
   return (
     <div className={styles.snsReports}>
       <span className={styles.snsTitle}>{title}</span>
-      <span>{cost}</span>
-      <span>{convValue}</span>
-      <span>{roas}</span>
-      <span>{imp}</span>
-      <span>{click}</span>
-      <span>{ctr}</span>
-      <span>{cpc}</span>
+      <span className={styles.snsDetail}>{cost}</span>
+      <span className={styles.snsDetail}>{convValue}</span>
+      <span className={styles.snsDetail}>{roas}</span>
+      <span className={styles.snsDetail}>{imp}</span>
+      <span className={styles.snsDetail}>{click}</span>
+      <span className={styles.snsDetail}>{ctr}</span>
+      <span className={styles.snsDetail}>{cpc}</span>
     </div>
   )
 }

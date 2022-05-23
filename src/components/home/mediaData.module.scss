@@ -37,28 +37,22 @@
 .trendReportList {
   display: flex;
   justify-content: space-between;
-  width: 1500px;
+  width: 2000px;
   padding: 15px;
   color: colors.$GRAYA;
+  text-align: right;
   border-top: 1px solid colors.$GRAYA;
   border-bottom: 1px solid colors.$GRAYA;
+
+  span {
+    width: 150px;
+  }
 }
 
 .chartTitle {
-  margin-left: 175px;
-  text-align: justify;
+  margin-left: 190px;
 }
 
-.snsTitle {
-  width: 100px;
-  text-align: justify;
-}
-
-.totalReport {
-  display: flex;
-  justify-content: space-between;
-  width: 1500px;
-  padding: 15px;
+.total {
   color: colors.$BLUE;
-  border-bottom: 1px solid colors.$GRAYA;
 }

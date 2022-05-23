@@ -1,0 +1,70 @@
+@use "/src/styles/constants/colors";
+
+.trendWrap {
+  width: 1000px;
+  height: 900px;
+  background-color: colors.$GRAYA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.trendChart {
+  width: 950px;
+  background-color: colors.$WHITE;
+  height: 450px;
+}
+
+.trendDetailWrap {
+  background-color: colors.$GRAYE;
+  margin-top: 50px;
+  width: 950px;
+  height: 310px;
+  overflow: scroll;
+  overflow-y: hidden;
+}
+.trendDetailWrap::-webkit-scrollbar {
+  width: 60px;
+}
+.trendDetailWrap::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #d1d8dc;
+}
+
+.trendReportList {
+  display: flex;
+  border-top: 1px solid colors.$GRAYA;
+  border-bottom: 1px solid colors.$GRAYA;
+  padding: 15px;
+  justify-content: space-between;
+  width: 1500px;
+  color: colors.$GRAYA;
+}
+
+.chartTitle {
+  text-align: justify;
+  margin-left: 175px;
+}
+
+.snsReports {
+  display: flex;
+  border-bottom: 1px solid colors.$GRAYA;
+  padding: 15px;
+  justify-content: space-between;
+  width: 1500px;
+}
+
+.snsTitle {
+  text-align: justify;
+  width: 100px;
+}
+
+.totalReport {
+  display: flex;
+  color: blue;
+  padding: 15px;
+  justify-content: space-between;
+  border-bottom: 1px solid colors.$GRAYA;
+  width: 1500px;
+}

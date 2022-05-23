@@ -1,0 +1,47 @@
+.totalAdData {
+  width: 1120px;
+  height: 743px;
+
+  .title {
+    padding-bottom: 20px;
+    font-size: 16px;
+  }
+
+  .chartWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 1039px;
+    height: 654px;
+    padding: 40px;
+    background-color: white;
+
+    .chartDescription {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .chartOptionSelectors {
+      position: relative;
+
+      .optionSelector1,
+      .optionSelector2 {
+        width: 123px;
+        height: 40px;
+      }
+
+      .termSelector {
+        position: absolute;
+        right: 0;
+        width: 80px;
+        height: 40px;
+      }
+    }
+
+    .chart {
+      height: 300px;
+      background-color: pink;
+    }
+  }
+}

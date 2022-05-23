@@ -1,18 +1,49 @@
+import { AdIcon, GuideIcon, HomeIcon, LogoIcon } from 'assets/svgs'
+import Dropdown from 'components/dropdown'
 import { NavLink } from 'react-router-dom'
+import { cx } from 'styles'
+import styles from './navBar.module.scss'
+
+const SERVICE_MENU = ['매드업', '서비스 추가하기']
 
 const Navbar = () => {
   return (
-    <div>
-      <h1>title</h1>
-      <ul>
-        <li>
-          <NavLink to='/'>Home</NavLink>
-        </li>
-        <li>
-          <NavLink to='ad'>Ad</NavLink>
-        </li>
-      </ul>
-    </div>
+    <nav className={styles.navigationBar}>
+      <LogoIcon className={styles.logoIcon} />
+      <hr className={styles.divideLine} />
+      <div className={styles.dropDown}>
+        <h3>서비스</h3>
+        <Dropdown list={SERVICE_MENU} />
+      </div>
+      <div className={styles.navMenu}>
+        <h3>광고 센터</h3>
+        <ul className={styles.navUl}>
+          <li>
+            <NavLink className={({ isActive }) => cx(styles.navItem, { [styles.clicked]: isActive })} to='/'>
+              <HomeIcon className={styles.navIcon} />
+              대시보드
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className={({ isActive }) => cx(styles.navItem, { [styles.clicked]: isActive })} to='ad'>
+              <AdIcon className={styles.navIcon} />
+              광고관리
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+      <div className={styles.guide}>
+        <GuideIcon />
+        <dl>
+          <dt>레버이용가이드</dt>
+          <dd>시작하기전에 알아보기</dd>
+        </dl>
+      </div>
+      <dl className={styles.termOfService}>
+        <dt>레버는 함께 만들어갑니다.</dt>
+        <dd>이용약관</dd>
+      </dl>
+    </nav>
   )
 }
 

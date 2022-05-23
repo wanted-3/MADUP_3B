@@ -1,0 +1,43 @@
+@use '/src/styles/constants/colors';
+
+.containerWrapper {
+  padding: 40px 20px 20px;
+  border: 1px solid colors.$GRAYD;
+  border-radius: 10px;
+
+  .title {
+    margin-bottom: 40px;
+    font-weight: 500;
+  }
+
+  dl {
+    margin-bottom: 20px;
+    border-top: 1px solid colors.$GRAYD;
+
+    div {
+      display: flex;
+      justify-content: left;
+      padding: 15px 5px;
+      font-size: small;
+      border-bottom: 1px solid colors.$GRAYD;
+
+      dt {
+        width: 100px;
+        color: colors.$GRAYA;
+      }
+
+      dd {
+        font-weight: 500;
+        color: colors.$GRAY3;
+      }
+    }
+  }
+
+  .editButton {
+    padding: 10px 15px;
+    font-weight: 500;
+    color: colors.$GRAY3;
+    border: 1px solid colors.$GRAYD;
+    border-radius: 10px;
+  }
+}

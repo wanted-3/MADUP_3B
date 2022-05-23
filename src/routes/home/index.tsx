@@ -24,8 +24,10 @@ const Home = () => {
           <DatePicker />
         </div>
       </header>
-      <TotalAdData />
-      <MediaData />
+      <main className={styles.main}>
+        <TotalAdData />
+        <MediaData />
+      </main>
     </div>
   )
 }

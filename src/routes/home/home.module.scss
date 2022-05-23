@@ -1,0 +1,22 @@
+@use '../../styles/constants/colors';
+
+.home {
+  background-color: colors.$BG_GRAY;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1120px;
+    height: 80px;
+    background-color: aliceblue;
+
+    .title {
+      font-size: 26px;
+    }
+
+    // .datePicker {
+    //   width: 228px;
+    // }
+  }
+}

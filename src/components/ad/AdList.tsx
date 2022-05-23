@@ -1,7 +1,7 @@
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { MouseEvent, useState } from 'react'
-import { adListDataState, resetAdListData, selectadListData } from 'states/adListData'
+import { adListDataState, returnState, selectadListData } from 'states/adListData'
 import AdItem from './AdItem'
 import styles from './adList.module.scss'
 
@@ -20,7 +20,7 @@ const AdList = () => {
   const handleAdStateClick = (e: MouseEvent<HTMLButtonElement>) => {
     setAdState(e.currentTarget.name)
 
-    e.currentTarget.value === 'all' ? dispatch(resetAdListData()) : dispatch(adListDataState(e.currentTarget.value))
+    e.currentTarget.value === 'all' ? dispatch(returnState()) : dispatch(adListDataState(e.currentTarget.value))
   }
 
   return (
@@ -51,7 +51,7 @@ const AdList = () => {
         </div>
 
         <div className={styles.itemGrid}>
-          {adListData?.ads.map((ad) => (
+          {adListData.map((ad) => (
             <AdItem key={ad.id} ad={ad} />
           ))}
         </div>

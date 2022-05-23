@@ -43,7 +43,7 @@ const TotalAdData = () => {
     }
     setSelectOptions((prev) => [...prev, e.currentTarget.value])
   }
-  console.log(`tdr:`, trendDataResult)
+  // console.log(`tdr:`, trendDataResult)
 
   return (
     <section className={styles.totalAdData}>

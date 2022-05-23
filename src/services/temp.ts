@@ -4,6 +4,20 @@ const adListDataUrl = '/data/wanted_FE_ad-list-data-set.json'
 const trendDataUrl = '/data/wanted_FE_trend-data-set.json'
 const mediaDataUrl = '/data/wanted_FE-media-channel-data-set.json'
 
+export interface ImediaData {
+  channel: string
+  click: number
+  convValue: number
+  cost: number
+  cpa: number
+  cpc: number
+  ctr: number
+  cvr: number
+  date: string
+  imp: number
+  roas: number
+}
+
 export const getAdListApi = () => {
   return axios.get(adListDataUrl)
 }
@@ -13,5 +27,5 @@ export const getTrendDataApi = () => {
 }
 
 export const getMediaDataApi = () => {
-  return axios.get(mediaDataUrl)
+  return axios.get<ImediaData[]>(mediaDataUrl)
 }

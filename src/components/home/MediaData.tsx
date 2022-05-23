@@ -3,50 +3,12 @@ import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { selectadMediaData, test } from 'states/mediaData'
 import { VictoryBar, VictoryChart, VictoryStack, VictoryPortal, VictoryLabel, VictoryAxis } from 'victory'
+import { getMediaDataApi } from 'services/temp'
+import MediaSumData from './MediaSumData'
 
 const temp = [
   {
     channel: '구글',
-    cost: 12345674, // 광고비
-    convValue: 123123, // 매출
-    roas: 123123, // roas(광고 지출 대비 수익률)
-    imp: 123124, // 노출수
-    click: 123123, // 클릭 수
-    ctr: 1234566, // 클릭률
-    cpc: 12345678, // 클릭당비용
-  },
-  {
-    channel: '페이스북',
-    cost: 12345674, // 광고비
-    convValue: 123123, // 매출
-    roas: 123123, // roas(광고 지출 대비 수익률)
-    imp: 123124, // 노출수
-    click: 123123, // 클릭 수
-    ctr: 1234566, // 클릭률
-    cpc: 12345678, // 클릭당비용
-  },
-  {
-    channel: '네이버',
-    cost: 12345674, // 광고비
-    convValue: 123123, // 매출
-    roas: 123123, // roas(광고 지출 대비 수익률)
-    imp: 123124, // 노출수
-    click: 123123, // 클릭 수
-    ctr: 1234566, // 클릭률
-    cpc: 12345678, // 클릭당비용
-  },
-  {
-    channel: '카카오톡',
-    cost: 12345674, // 광고비
-    convValue: 123123, // 매출
-    roas: 123123, // roas(광고 지출 대비 수익률)
-    imp: 123124, // 노출수
-    click: 123123, // 클릭 수
-    ctr: 1234566, // 클릭률
-    cpc: 12345678, // 클릭당비용
-  },
-  {
-    channel: '총계',
     cost: 12345674, // 광고비
     convValue: 123123, // 매출
     roas: 123123, // roas(광고 지출 대비 수익률)
@@ -73,10 +35,11 @@ const MediaData = () => {
   const temp1 = useAppSelector(selectadMediaData)
   const dispatch = useAppDispatch()
 
-  console.log(temp1)
   const handleTemp = () => {
-    console.log(temp1)
-    dispatch(test())
+    getMediaDataApi().then((res) => {
+      console.log('미디어 데이터', res.data)
+      dispatch(test({ data: res.data, startDate: '2022-02-01', endDate: '2022-02-02' }))
+    })
   }
 
   return (
@@ -159,18 +122,12 @@ const MediaData = () => {
             <span>클릭률 (CTR)</span>
             <span>클릭당비용 (CPC)</span>
           </div>
-          {temp.map((item, i) => (
-            <div className={styles.snsReports} key={i}>
-              <span className={styles.snsTitle}>{item.channel}</span>
-              <span>{item.cost}</span>
-              <span>{item.convValue}</span>
-              <span>{item.roas}</span>
-              <span>{item.imp}</span>
-              <span>{item.click}</span>
-              <span>{item.ctr}</span>
-              <span>{item.cpc}</span>
-            </div>
-          ))}
+
+          <MediaSumData title='페이스북' {...temp1.facebook} />
+          <MediaSumData title='구글' {...temp1.google} />
+          <MediaSumData title='네이버' {...temp1.naver} />
+          <MediaSumData title='카카오' {...temp1.kakao} />
+          <MediaSumData title='합계' {...temp1.all} />
         </div>
       </div>
     </div>

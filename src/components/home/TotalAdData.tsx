@@ -3,7 +3,11 @@ import styles from './totalAdData.module.scss'
 
 import { useState, ChangeEvent } from 'react'
 import { useAppSelector } from 'hooks/useAppSelector'
-import { trendData } from 'states/dailyTrendData'
+
+import { temp, testReduce, trendData } from 'states/dailyTrendData'
+import { useAppDispatch } from 'hooks/useAppDispatch'
+import { getTrendDataApi } from 'services/temp'
+import { useMount } from 'react-use'
 
 // 매출 = ROAS / 100 * 광고비
 const titles = ['ROAS', '광고비', '노출수', '클릭수', '전환수', '매출']
@@ -35,6 +39,7 @@ const TotalAdData = () => {
   const [selectOptions, setSelectOptions] = useState<string[]>([])
   const [isDisable, setIsDisable] = useState(false)
   const trendDataResult = useAppSelector(trendData)
+  const dispatch = useAppDispatch()
 
   const handleSelectOption = (e: ChangeEvent<HTMLSelectElement>) => {
     const selected = e.currentTarget
@@ -43,17 +48,56 @@ const TotalAdData = () => {
     }
     setSelectOptions((prev) => [...prev, e.currentTarget.value])
   }
+
+  const handleTest = () => {
+    dispatch(testReduce('2022-02-21'))
+  }
+
+  useMount(() => {
+    getTrendDataApi().then((res) => {
+      dispatch(temp(res.data))
+    })
+  })
   console.log(`tdr:`, trendDataResult)
 
   return (
     <section className={styles.totalAdData}>
       <h2 className={styles.title}>통합광고현황</h2>
       <div className={styles.chartWrapper}>
+        <button type='button' onClick={handleTest}>
+          get data
+        </button>
         <div className={styles.chartDescription}>
-          {titles.map((v, idx) => {
-            const key = `${v}-${idx}`
-            return <AdData key={key} title={v} data={v} result={v} />
-          })}
+          <AdData
+            title='ROAS'
+            data={trendDataResult?.report.daily[0].roas}
+            result={trendDataResult?.report.daily[0].roas}
+          />
+          <AdData
+            title='광고비'
+            data={trendDataResult?.report.daily[0].cost}
+            result={trendDataResult?.report.daily[0].cost}
+          />
+          <AdData
+            title='노출수'
+            data={trendDataResult?.report.daily[0].imp}
+            result={trendDataResult?.report.daily[0].imp}
+          />
+          <AdData
+            title='클릭수'
+            data={trendDataResult?.report.daily[0].click}
+            result={trendDataResult?.report.daily[0].click}
+          />
+          <AdData
+            title='전환수'
+            data={trendDataResult?.report.daily[0].conv}
+            result={trendDataResult?.report.daily[0].conv}
+          />
+          <AdData
+            title='매출'
+            data={trendDataResult?.report.daily[0].convValue}
+            result={trendDataResult?.report.daily[0].convValue}
+          />
         </div>
         <div className={styles.chartOptionSelectors}>
           <select name='option1' className={styles.optionSelector1} onChange={handleSelectOption}>

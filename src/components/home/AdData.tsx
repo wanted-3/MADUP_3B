@@ -3,8 +3,8 @@ import styles from './adData.module.scss'
 
 interface Props {
   title: string
-  data: string
-  result: string
+  data: number
+  result: number
 }
 
 const AdData = ({ title, data, result }: Props) => {

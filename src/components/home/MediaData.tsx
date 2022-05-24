@@ -65,11 +65,11 @@ const MediaData = () => {
             >
               <VictoryBar
                 data={[
-                  { x: '광고', y: 100, label: 'C' },
-                  { x: '광고', y: 100, label: 'C' },
-                  { x: '광고', y: 100, label: 'C' },
-                  { x: '광고', y: 100, label: 'C' },
-                  { x: '광고', y: 100, label: 'C' },
+                  { x: '광고', y: 0, label: 'C' },
+                  { x: '광고', y: 0, label: 'C' },
+                  { x: '광고', y: 0, label: 'C' },
+                  { x: '광고', y: 0, label: 'C' },
+                  { x: '광고', y: 0, label: 'C' },
                 ]}
               />
               <VictoryBar
@@ -79,33 +79,6 @@ const MediaData = () => {
                   { x: '광고', y: '광고', label: 'C' },
                   { x: '광고', y: '광고', label: 'C' },
                   { x: '광고', y: '광고', label: 'C' },
-                ]}
-              />
-              <VictoryBar
-                data={[
-                  { x: '노출수', label: 'A' },
-                  { x: '노출수', label: 'A' },
-                  { x: '노출수', label: 'A' },
-                  { x: '노출수', label: 'A' },
-                  { x: '노출수', label: 'A' },
-                ]}
-              />
-              <VictoryBar
-                data={[
-                  { x: '클릭수', label: 'D' },
-                  { x: '클릭수', label: 'D' },
-                  { x: '클릭수', label: 'D' },
-                  { x: '클릭수', label: 'D' },
-                  { x: '클릭수', label: 'D' },
-                ]}
-              />
-              <VictoryBar
-                data={[
-                  { x: '전환수', label: 'Z' },
-                  { x: '전환수', label: 'Z' },
-                  { x: '전환수', label: 'Z' },
-                  { x: '전환수', label: 'Z' },
-                  { x: '전환수', label: 'Z' },
                 ]}
               />
             </VictoryStack>

@@ -1,16 +1,17 @@
-import store from 'store'
 import AdData from './AdData'
 import styles from './totalAdData.module.scss'
 
-import { useState } from 'react'
 import { useAppSelector } from 'hooks/useAppSelector'
 import SelectButton from './SelectButton'
 import Dropdown from 'components/dropdown'
 
-import { trendDataSum, trendData } from 'states/dailyTrendData'
+import { trendData } from 'states/dailyTrendData'
 import { useAppDispatch } from 'hooks/useAppDispatch'
-import { getTrendDataApi } from 'services/temp'
-import dayjs from 'dayjs'
+import { temp, weeklyData } from 'states/weeklyTrendData'
+import TrendDataChart from './TrendDataChart'
+import { selectedOption, setFirstOption, setSecondOption } from 'states/selectedOptions'
+import { getAdListApi, getTrendDataApi } from 'services/temp'
+import { useMemo } from 'react'
 
 // 매출 = ROAS / 100 * 광고비
 const dataStructure = [
@@ -38,39 +39,61 @@ const dataStructure = [
 
 const TotalAdData = () => {
   const trendDataResult = useAppSelector(trendData)
-  const [firstOption, setFirstOption] = useState(store.get('firstOption') || 'ROAS')
-  const [secondOption, setSecondOption] = useState(store.get('secondOption') || '광고비')
+  const weeklyDataResult = useAppSelector(weeklyData)
+  const selectedOptions = useAppSelector(selectedOption)
+
   const dispatch = useAppDispatch()
 
-  const handleTest = () => {
-    const startD = dayjs(store.get('startDate'))
-    const endD = dayjs(store.get('startDate')).add(6, 'day')
-    const tstartDate = startD.subtract(endD.diff(startD, 'day') + 1, 'day').format('YYYY-MM-DD')
-    const tendDate = endD.subtract(endD.diff(startD, 'day') + 1, 'day').format('YYYY-MM-DD')
+  const data = useMemo(() => {
+    if (selectedOptions.firstOption === 'ROAS') {
+      return weeklyDataResult.ROAS
+    }
+    if (selectedOptions.firstOption === '광고비') {
+      return weeklyDataResult.COST
+    }
+    if (selectedOptions.firstOption === '클릭수') {
+      return weeklyDataResult.CLICK
+    }
+    if (selectedOptions.firstOption === '전환수') {
+      return weeklyDataResult.CONV
+    }
+    if (selectedOptions.firstOption === '노출수') {
+      return weeklyDataResult.IMP
+    }
+    if (selectedOptions.firstOption === '매출') {
+      return weeklyDataResult.CONVVALUE
+    }
+    return weeklyDataResult.CONVVALUE
+  }, [selectedOptions, weeklyDataResult])
 
-    console.log(startD.format('YYYY-MM-DD'), endD.format('YYYY-MM-DD'), tstartDate, tendDate)
+  const secondData = useMemo(() => {
+    if (selectedOptions.secondOption === 'ROAS') {
+      return weeklyDataResult.ROAS
+    }
+    if (selectedOptions.secondOption === '광고비') {
+      return weeklyDataResult.COST
+    }
+    if (selectedOptions.secondOption === '클릭수') {
+      return weeklyDataResult.CLICK
+    }
+    if (selectedOptions.secondOption === '전환수') {
+      return weeklyDataResult.CONV
+    }
+    if (selectedOptions.secondOption === '노출수') {
+      return weeklyDataResult.IMP
+    }
+    if (selectedOptions.secondOption === '매출') {
+      return weeklyDataResult.CONVVALUE
+    }
+    return weeklyDataResult.CONVVALUE
+  }, [selectedOptions, weeklyDataResult])
 
-    getTrendDataApi().then((res) => {
-      // const dailyMap = new Map(res.data.report.daily.map((day) => [day.date, day]))
-      dispatch(
-        trendDataSum({
-          data: res.data,
-          startDate: startD.format('YYYY-MM-DD'),
-          endDate: endD.format('YYYY-MM-DD'),
-          prevStart: tstartDate,
-          prevEnd: tendDate,
-        })
-      )
-    })
-  }
+  console.log(data)
 
   return (
     <section className={styles.totalAdData}>
       <h2 className={styles.title}>통합광고현황</h2>
       <div className={styles.chartWrapper}>
-        <button type='button' onClick={handleTest}>
-          get data
-        </button>
         <div className={styles.chartDescription}>
           <AdData title='ROAS' data={trendDataResult.roas} result={trendDataResult.tRoas} />
           <AdData title='광고비' data={trendDataResult.cost} result={trendDataResult.tCost} />
@@ -81,25 +104,18 @@ const TotalAdData = () => {
         </div>
         <div className={styles.chartOptionSelectors}>
           <div className={styles.optionSelector}>
-            <SelectButton
-              defaultSelect={firstOption}
-              firstOption={firstOption}
-              secondOption={secondOption}
-              setFirstOption={setFirstOption}
-            />
-            <SelectButton
-              defaultSelect={secondOption}
-              firstOption={firstOption}
-              secondOption={secondOption}
-              setSecondOption={setSecondOption}
-            />
+            <SelectButton defaultSelect={selectedOptions.firstOption} setSelectOption={setFirstOption} />
+            <SelectButton defaultSelect={selectedOptions.secondOption} setSelectOption={setSecondOption} />
           </div>
           <select className={styles.termSelector}>
             <option>주간</option>
             <option>일별</option>
           </select>
         </div>
-        <div className={styles.chart}>Chart</div>
+
+        <div className={styles.chart}>
+          <TrendDataChart chartData={data} temp={secondData} />
+        </div>
       </div>
     </section>
   )

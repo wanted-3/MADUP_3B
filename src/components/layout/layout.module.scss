@@ -2,4 +2,35 @@
 
 .appLayout {
   display: flex;
+
+  .main {
+    width: 100%;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 20px 40px;
+    background-color: colors.$BG_GRAY;
+    border-bottom: 1px solid colors.$GRAYE;
+
+    .bell,
+    .setting {
+      margin-right: 20px;
+      cursor: pointer;
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100px;
+      cursor: pointer;
+
+      > span {
+        color: colors.$TEXT_GRAY;
+      }
+    }
+  }
 }

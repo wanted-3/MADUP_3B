@@ -2,7 +2,7 @@ import store from 'store'
 import AdData from './AdData'
 import styles from './totalAdData.module.scss'
 
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { useAppSelector } from 'hooks/useAppSelector'
 import SelectButton from './SelectButton'
 import Dropdown from 'components/dropdown'
@@ -13,8 +13,6 @@ import { getTrendDataApi } from 'services/temp'
 import dayjs from 'dayjs'
 
 // 매출 = ROAS / 100 * 광고비
-const titles = ['ROAS', '광고비', '노출수', '클릭수', '전환수', '매출']
-
 const dataStructure = [
   { value: 0, category: 'ROAS' },
   { value: 0, category: '광고비' },

@@ -1,4 +1,4 @@
-import { IncrementIcon } from 'assets/svgs'
+import { DecrementIcon, IncrementIcon } from 'assets/svgs'
 import styles from './adData.module.scss'
 
 interface Props {
@@ -10,11 +10,14 @@ interface Props {
 const AdData = ({ title, data, result }: Props) => {
   return (
     <div className={styles.adData}>
-      <p>{title}</p>
-      <span>{data}</span>
-      <div className={styles.resultState}>
-        <IncrementIcon />
-        <span>{result}</span>
+      <p className={styles.title}>{title}</p>
+      <div className={styles.content}>
+        <span className={styles.resultNumber}>{data}</span>
+        <div className={styles.resultState}>
+          {result > 0 && <IncrementIcon />}
+          {result < 0 && <DecrementIcon />}
+          <span className={styles.resultStateText}>{result}</span>
+        </div>
       </div>
     </div>
   )

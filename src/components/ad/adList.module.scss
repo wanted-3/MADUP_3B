@@ -1,18 +1,18 @@
 @use '/src/styles/constants/colors';
 
 .containerWrapper {
-  padding: 20px;
+  padding: 40px;
   background-color: #f6f7f8;
 
   .title {
-    margin-bottom: 30px;
+    padding-bottom: 20px;
     font-size: large;
     font-weight: 600;
     color: colors.$GRAY3;
   }
 
   .itemWrapper {
-    padding: 30px;
+    padding: 40px;
     background-color: colors.$WHITE;
     border-radius: 20px;
 

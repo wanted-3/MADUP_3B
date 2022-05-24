@@ -93,9 +93,10 @@ const TotalAdData = () => {
               setSecondOption={setSecondOption}
             />
           </div>
-          <div className={styles.termSelector}>
-            <Dropdown list={['주간', '일별']} />
-          </div>
+          <select className={styles.termSelector}>
+            <option>주간</option>
+            <option>일별</option>
+          </select>
         </div>
         <div className={styles.chart}>Chart</div>
       </div>

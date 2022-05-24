@@ -43,8 +43,8 @@ const MediaData = () => {
   }
 
   return (
-    <div>
-      <h1>매체현황</h1>
+    <div className={styles.mediaData}>
+      <h1 className={styles.title}>매체현황</h1>
       <button type='button' onClick={handleTemp}>
         click
       </button>

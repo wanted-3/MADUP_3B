@@ -1,5 +1,14 @@
 @use '/src/styles/constants/colors';
 
+.mediaData {
+  width: 100%;
+
+  .title {
+    font-size: large;
+    font-weight: 600;
+  }
+}
+
 .trendWrap {
   display: flex;
   flex-direction: column;
@@ -7,7 +16,10 @@
   justify-content: center;
   width: 1000px;
   height: 900px;
+  padding: 40px;
+  background-color: white;
   background-color: colors.$GRAYA;
+  border-radius: 20px;
 }
 
 .trendChart {

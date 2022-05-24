@@ -4,8 +4,8 @@
 
   .title {
     padding-bottom: 20px;
-    font-size: 16px;
-    font-weight: 700;
+    font-size: large;
+    font-weight: 600;
   }
 
   .chartWrapper {
@@ -16,6 +16,7 @@
     height: 654px;
     padding: 40px;
     background-color: white;
+    border-radius: 20px;
 
     .chartDescription {
       display: grid;
@@ -33,6 +34,18 @@
         > :nth-child(1) {
           margin-right: 10px;
         }
+      }
+
+      .termSelector {
+        width: 70px;
+        padding: 0 10px;
+        cursor: pointer;
+        background: url('../../../public/arrow.png') no-repeat 90% 50% / 18px auto;
+        border: none;
+        -o-appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
       }
     }
 

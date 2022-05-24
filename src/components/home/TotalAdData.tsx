@@ -2,11 +2,15 @@ import store from 'store'
 import AdData from './AdData'
 import styles from './totalAdData.module.scss'
 
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useAppSelector } from 'hooks/useAppSelector'
-import { trendData } from 'states/dailyTrendData'
 import SelectButton from './SelectButton'
 import Dropdown from 'components/dropdown'
+
+import { trendDataSum, trendData } from 'states/dailyTrendData'
+import { useAppDispatch } from 'hooks/useAppDispatch'
+import { getTrendDataApi } from 'services/temp'
+import dayjs from 'dayjs'
 
 // 매출 = ROAS / 100 * 광고비
 const titles = ['ROAS', '광고비', '노출수', '클릭수', '전환수', '매출']
@@ -38,16 +42,43 @@ const TotalAdData = () => {
   const trendDataResult = useAppSelector(trendData)
   const [firstOption, setFirstOption] = useState(store.get('firstOption') || 'ROAS')
   const [secondOption, setSecondOption] = useState(store.get('secondOption') || '광고비')
+  const dispatch = useAppDispatch()
+
+  const handleTest = () => {
+    const startD = dayjs('2022-02-05')
+    const endD = dayjs('2022-02-06')
+    const tstartDate = startD.subtract(endD.diff(startD, 'day') + 1, 'day').format('YYYY-MM-DD')
+    const tendDate = endD.subtract(endD.diff(startD, 'day') + 1, 'day').format('YYYY-MM-DD')
+    console.log(startD, endD, tstartDate, tendDate)
+
+    getTrendDataApi().then((res) => {
+      // const dailyMap = new Map(res.data.report.daily.map((day) => [day.date, day]))
+      dispatch(
+        trendDataSum({
+          data: res.data,
+          startDate: startD.format('YYYY-MM-DD'),
+          endDate: endD.format('YYYY-MM-DD'),
+          prevStart: tstartDate,
+          prevEnd: tendDate,
+        })
+      )
+    })
+  }
 
   return (
     <section className={styles.totalAdData}>
       <h2 className={styles.title}>통합광고현황</h2>
       <div className={styles.chartWrapper}>
+        <button type='button' onClick={handleTest}>
+          get data
+        </button>
         <div className={styles.chartDescription}>
-          {titles.map((v, idx) => {
-            const key = `${v}-${idx}`
-            return <AdData key={key} title={v} data={v} result={v} />
-          })}
+          <AdData title='ROAS' data={trendDataResult.roas} result={trendDataResult.tRoas} />
+          <AdData title='광고비' data={trendDataResult.cost} result={trendDataResult.tCost} />
+          <AdData title='노출수' data={trendDataResult.imp} result={trendDataResult.tImp} />
+          <AdData title='클릭수' data={trendDataResult.click} result={trendDataResult.tClick} />
+          <AdData title='전환수' data={trendDataResult.conv} result={trendDataResult.tConv} />
+          <AdData title='매출' data={trendDataResult.convValue} result={trendDataResult.tConvValue} />
         </div>
         <div className={styles.chartOptionSelectors}>
           <div className={styles.optionSelector}>

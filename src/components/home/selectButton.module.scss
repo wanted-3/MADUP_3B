@@ -1,0 +1,46 @@
+@use '../../styles/constants/colors';
+
+.selectBox {
+  width: 120px;
+  font-size: 14px;
+
+  .selectedOption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 5px 2px 5px 20px;
+    margin-bottom: 3px;
+    border: 1.2px solid colors.$GRAYD;
+    border-radius: 10px;
+
+    .selectedTitle {
+      width: 50px;
+      font-size: 14px;
+      background-color: white;
+    }
+  }
+
+  .optionList {
+    cursor: pointer;
+    border: 1.2px solid colors.$GRAYD;
+    border-radius: 10px;
+
+    .option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 5px;
+      border-radius: 10px;
+
+      &:hover {
+        background-color: colors.$GRAYE;
+      }
+
+      .title {
+        width: 60px;
+        text-align: center;
+      }
+    }
+  }
+}

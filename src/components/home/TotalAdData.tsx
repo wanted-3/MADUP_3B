@@ -1,9 +1,12 @@
+import store from 'store'
 import AdData from './AdData'
 import styles from './totalAdData.module.scss'
 
-import { useState, ChangeEvent } from 'react'
+import { useState } from 'react'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { trendData } from 'states/dailyTrendData'
+import SelectButton from './SelectButton'
+import Dropdown from 'components/dropdown'
 
 // 매출 = ROAS / 100 * 광고비
 const titles = ['ROAS', '광고비', '노출수', '클릭수', '전환수', '매출']
@@ -32,18 +35,9 @@ const dataStructure = [
 // },
 
 const TotalAdData = () => {
-  const [selectOptions, setSelectOptions] = useState<string[]>([])
-  const [isDisable, setIsDisable] = useState(false)
   const trendDataResult = useAppSelector(trendData)
-
-  const handleSelectOption = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selected = e.currentTarget
-    if (selectOptions.includes(selected.value)) {
-      console.log()
-    }
-    setSelectOptions((prev) => [...prev, e.currentTarget.value])
-  }
-  // console.log(`tdr:`, trendDataResult)
+  const [firstOption, setFirstOption] = useState(store.get('firstOption') || 'ROAS')
+  const [secondOption, setSecondOption] = useState(store.get('secondOption') || '광고비')
 
   return (
     <section className={styles.totalAdData}>
@@ -56,34 +50,23 @@ const TotalAdData = () => {
           })}
         </div>
         <div className={styles.chartOptionSelectors}>
-          <select name='option1' className={styles.optionSelector1} onChange={handleSelectOption}>
-            {titles
-              .filter((title) => !selectOptions.includes(title))
-              .map((v, idx) => {
-                const key = `${v}-data${idx}`
-                return (
-                  <option key={key} value={v}>
-                    {v}
-                  </option>
-                )
-              })}
-          </select>
-          <select name='option2' className={styles.optionSelector2} onChange={handleSelectOption}>
-            {titles
-              .filter((title) => !selectOptions.includes(title))
-              .map((v, idx) => {
-                const key = `${v}-data${idx}`
-                return (
-                  <option key={key} value={v}>
-                    {v}
-                  </option>
-                )
-              })}
-          </select>
-          <select name='option3' className={styles.termSelector}>
-            <option value='주간'>주간</option>
-            <option value='일별'>일별</option>
-          </select>
+          <div className={styles.optionSelector}>
+            <SelectButton
+              defaultSelect={firstOption}
+              firstOption={firstOption}
+              secondOption={secondOption}
+              setFirstOption={setFirstOption}
+            />
+            <SelectButton
+              defaultSelect={secondOption}
+              firstOption={firstOption}
+              secondOption={secondOption}
+              setSecondOption={setSecondOption}
+            />
+          </div>
+          <div className={styles.termSelector}>
+            <Dropdown list={['주간', '일별']} />
+          </div>
         </div>
         <div className={styles.chart}>Chart</div>
       </div>

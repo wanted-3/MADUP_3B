@@ -24,19 +24,15 @@
     }
 
     .chartOptionSelectors {
-      position: relative;
+      display: flex;
+      justify-content: space-between;
 
-      .optionSelector1,
-      .optionSelector2 {
-        width: 123px;
-        height: 40px;
-      }
+      .optionSelector {
+        display: flex;
 
-      .termSelector {
-        position: absolute;
-        right: 0;
-        width: 80px;
-        height: 40px;
+        > :nth-child(1) {
+          margin-right: 10px;
+        }
       }
     }
 

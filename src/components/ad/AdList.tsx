@@ -1,7 +1,8 @@
+import Dropdown from 'components/dropdown'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
-import { MouseEvent, useState } from 'react'
-import { adListDataState, returnState, selectadListData } from 'states/adListData'
+import { MouseEvent, useMemo } from 'react'
+import { ChangeAdListData, selectadListData, selectedState } from 'states/adListData'
 import AdItem from './AdItem'
 import styles from './adList.module.scss'
 
@@ -12,16 +13,23 @@ const AD_STATE_GROUP = [
 ]
 
 const AdList = () => {
-  const [adState, setAdState] = useState('전체 광고')
-
   const dispatch = useAppDispatch()
   const adListData = useAppSelector(selectadListData)
+  const adListState = useAppSelector(selectedState)
 
-  const handleAdStateClick = (e: MouseEvent<HTMLButtonElement>) => {
-    setAdState(e.currentTarget.name)
-
-    e.currentTarget.value === 'all' ? dispatch(returnState()) : dispatch(adListDataState(e.currentTarget.value))
+  const handleAdStateClick = (e: MouseEvent<HTMLSelectElement>) => {
+    dispatch(ChangeAdListData(e.currentTarget.value))
   }
+
+  const adListStateName = useMemo(() => {
+    let name
+
+    if (adListState === 'all') name = '전체 광고'
+    if (adListState === 'active') name = '진행 광고'
+    if (adListState === 'ended') name = '중단 광고'
+
+    return name
+  }, [adListState])
 
   return (
     <div className={styles.containerWrapper}>
@@ -29,21 +37,13 @@ const AdList = () => {
 
       <div className={styles.itemWrapper}>
         <div className={styles.itemTop}>
-          <button type='button' className={styles.adStateButton}>
-            {adState}
-          </button>
-
-          {AD_STATE_GROUP.map((item) => (
-            <button
-              type='button'
-              key={`adState-${item.name}`}
-              name={item.name}
-              value={item.state}
-              onClick={handleAdStateClick}
-            >
-              {item.name}
-            </button>
-          ))}
+          <Dropdown onClick={handleAdStateClick}>
+            {AD_STATE_GROUP.map((item) => (
+              <option key={item.name} value={item.state}>
+                {item.name}
+              </option>
+            ))}
+          </Dropdown>
 
           <button type='button' className={styles.createButton}>
             광고 만들기

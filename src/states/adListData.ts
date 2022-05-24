@@ -20,6 +20,7 @@ export interface Iads {
 export interface SystemState {
   value: {
     count: number
+    state: 'all' | 'ended' | 'active'
     AllAds: Iads[]
     filteredAds: Iads[]
   }
@@ -28,6 +29,7 @@ export interface SystemState {
 const INITIAL_STATE: SystemState = {
   value: {
     count: 0,
+    state: 'all',
     AllAds: [],
     filteredAds: [],
   },
@@ -37,24 +39,34 @@ const systemSlice = createSlice({
   name: 'adListData',
   initialState: INITIAL_STATE,
   reducers: {
-    firstTemp: (state, action) => {
+    mountAdListData: (state, action) => {
       state.value.count = action.payload.count
       state.value.AllAds = action.payload.ads
-      state.value.filteredAds = action.payload.ads
+
+      if (state.value.state === 'all') {
+        state.value.filteredAds = state.value.AllAds
+      } else {
+        state.value.filteredAds = state.value.AllAds.filter((item) => item.status === state.value.state)
+      }
     },
 
-    adListDataState: (state, action) => {
-      state.value.filteredAds = state.value.AllAds.filter((item) => item.status === action.payload)
-    },
+    ChangeAdListData: (state, action) => {
+      state.value.state = action.payload
 
-    returnState: (state) => {
-      state.value.filteredAds = state.value.AllAds
+      if (state.value.state === 'all') {
+        state.value.filteredAds = state.value.AllAds
+      } else {
+        state.value.filteredAds = state.value.AllAds.filter((item) => item.status === state.value.state)
+      }
+
+      state.value.count = state.value.filteredAds.length
     },
   },
 })
 
-export const { firstTemp, adListDataState, returnState } = systemSlice.actions
+export const { mountAdListData, ChangeAdListData } = systemSlice.actions
 
 export default systemSlice.reducer
 
 export const selectadListData = (state: RootState) => state.adListData.value.filteredAds
+export const selectedState = (state: RootState) => state.adListData.value.state

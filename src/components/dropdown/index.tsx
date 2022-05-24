@@ -1,22 +1,16 @@
-import { useState } from 'react'
+import { ArrowIcon } from 'assets/svgs'
+import { MouseEvent, ReactNode } from 'react'
 import styles from './dropdown.module.scss'
 
 interface Props {
-  list: string[]
+  onClick?: (event: MouseEvent<HTMLSelectElement>) => void
+  children: ReactNode
 }
 
-const Dropdown = ({ list }: Props) => {
-  const [opened, setOpened] = useState(false)
-
-  const handleDropdown = () => {
-    setOpened((prev) => !prev)
-  }
-
+const Dropdown = ({ onClick, children }: Props) => {
   return (
-    <select>
-      {list.map((el) => (
-        <option key={`DropdownKey__${el}`}>{el}</option>
-      ))}
+    <select className={styles.dropdown} onClick={onClick}>
+      {children}
     </select>
   )
 }

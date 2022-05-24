@@ -96,7 +96,13 @@ const TotalAdData = () => {
             />
           </div>
           <div className={styles.termSelector}>
-            <Dropdown list={['주간', '일별']} />
+            <Dropdown>
+              {['주간', '일별'].map((item) => (
+                <option key={`DropdownKey_${item}`} value={item}>
+                  {item}
+                </option>
+              ))}
+            </Dropdown>
           </div>
         </div>
         <div className={styles.chart}>Chart</div>

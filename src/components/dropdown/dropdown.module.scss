@@ -1,3 +1,8 @@
-.dropButton {
-  background-color: red;
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/position';
+
+.dropdown {
+  padding: 10px;
+  border: 1px solid colors.$GRAYD;
+  border-radius: 5px;
 }

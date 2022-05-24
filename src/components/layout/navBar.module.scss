@@ -93,16 +93,26 @@
 
 .guide {
   display: flex;
+  align-items: center;
+  justify-content: center;
   width: 240px;
   height: 100px;
-  padding: 30px 20px;
   margin: 40px;
-  background-color: yellow;
+  background-color: colors.$SKY_BLUE;
   border-radius: 10px;
 
-  dd {
-    font-size: 12px;
-    color: colors.$TEXT_GRAY;
+  .guideContent {
+    padding: 0 30px 0 10px;
+
+    > dt {
+      padding-bottom: 10px;
+      font-weight: 500;
+    }
+
+    > dd {
+      font-size: 12px;
+      color: colors.$TEXT_GRAY;
+    }
   }
 }
 
@@ -111,7 +121,6 @@
   margin: 0 40px;
   font-size: 12px;
   color: colors.$TEXT_GRAY;
-  background-color: green;
 
   dd {
     margin-top: 10px;

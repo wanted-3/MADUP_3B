@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import styles from './dropdown.module.scss'
 
 interface Props {
@@ -6,14 +5,8 @@ interface Props {
 }
 
 const Dropdown = ({ list }: Props) => {
-  const [opened, setOpened] = useState(false)
-
-  const handleDropdown = () => {
-    setOpened((prev) => !prev)
-  }
-
   return (
-    <select>
+    <select className={styles.dropDown}>
       {list.map((el) => (
         <option key={`DropdownKey__${el}`}>{el}</option>
       ))}

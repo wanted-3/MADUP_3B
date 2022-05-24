@@ -1,3 +1,15 @@
-.dropButton {
-  background-color: red;
+@use '../../styles/constants/colors';
+
+.dropDown {
+  width: 100%;
+  padding: 15px;
+  cursor: pointer;
+  background: url('../../../public/arrow.png') no-repeat 95% 50% / 18px auto;
+  border: none;
+  border: 1.2px solid colors.$GRAYD;
+  border-radius: 10px;
+  -o-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }

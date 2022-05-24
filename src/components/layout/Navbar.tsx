@@ -34,9 +34,9 @@ const Navbar = () => {
       </div>
       <div className={styles.guide}>
         <GuideIcon />
-        <dl>
-          <dt>레버이용가이드</dt>
-          <dd>시작하기전에 알아보기</dd>
+        <dl className={styles.guideContent}>
+          <dt>레버 이용 가이드</dt>
+          <dd>시작하기 전에 알아보기</dd>
         </dl>
       </div>
       <dl className={styles.termOfService}>

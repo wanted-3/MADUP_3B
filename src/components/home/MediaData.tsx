@@ -5,19 +5,13 @@ import { selectadMediaData, test } from 'states/mediaData'
 import { VictoryBar, VictoryChart, VictoryStack, VictoryPortal, VictoryLabel, VictoryTheme, VictoryAxis } from 'victory'
 import { getMediaDataApi } from 'services/temp'
 import MediaSumData from './MediaSumData'
-import BigNumber from 'bignumber.js'
+import { CircleIcon } from 'assets/svgs'
 
-const temp = [
-  {
-    channel: '구글',
-    cost: 12345674, // 광고비
-    convValue: 123123, // 매출
-    roas: 123123, // roas(광고 지출 대비 수익률)
-    imp: 123124, // 노출수
-    click: 123123, // 클릭 수
-    ctr: 1234566, // 클릭률
-    cpc: 12345678, // 클릭당비용
-  },
+const snsColors = [
+  ['페이스북', '#7FA2FF'],
+  ['구글', '#AC8AF8'],
+  ['네이버', '#85DA47'],
+  ['카카오', '#F9F871'],
 ]
 
 // "channel": "google", //
@@ -36,43 +30,40 @@ const MediaData = () => {
   const temp1 = useAppSelector(selectadMediaData)
   const dispatch = useAppDispatch()
   const facebookRatio = [
-    { costRatio: new BigNumber(temp1.facebook.cost).dividedBy(temp1.all.cost).multipliedBy(100).toNumber() },
+    { costRatio: (temp1.facebook.cost / temp1.all.cost) * 100 },
     {
-      convValueRatio: new BigNumber(temp1.facebook.convValue)
-        .dividedBy(temp1.all.convValue)
-        .multipliedBy(100)
-        .toNumber(),
+      convValueRatio: (temp1.facebook.convValue / temp1.all.convValue) * 100,
     },
-    { impRatio: new BigNumber(temp1.facebook.imp).dividedBy(temp1.all.imp).multipliedBy(100).toNumber() },
-    { clickRatio: new BigNumber(temp1.facebook.click).dividedBy(temp1.all.click).multipliedBy(100).toNumber() },
-    { cvrRatio: new BigNumber(temp1.facebook.cvr).dividedBy(temp1.all.cvr).multipliedBy(100).toNumber() },
+    { impRatio: (temp1.facebook.imp / temp1.all.imp) * 100 },
+    { clickRatio: (temp1.facebook.click / temp1.all.click) * 100 },
+    { cvrRatio: (temp1.facebook.cvr / temp1.all.cvr) * 100 },
   ]
   const googleRatio = [
-    { costRatio: new BigNumber(temp1.google.cost).dividedBy(temp1.all.cost).multipliedBy(100).toNumber() },
+    { costRatio: (temp1.google.cost / temp1.all.cost) * 100 },
     {
-      convValueRatio: new BigNumber(temp1.google.convValue).dividedBy(temp1.all.convValue).multipliedBy(100).toNumber(),
+      convValueRatio: (temp1.google.convValue / temp1.all.convValue) * 100,
     },
-    { impRatio: new BigNumber(temp1.google.imp).dividedBy(temp1.all.imp).multipliedBy(100).toNumber() },
-    { clickRatio: new BigNumber(temp1.google.click).dividedBy(temp1.all.click).multipliedBy(100).toNumber() },
-    { cvrRatio: new BigNumber(temp1.google.cvr).dividedBy(temp1.all.cvr).multipliedBy(100).toNumber() },
+    { impRatio: (temp1.google.imp / temp1.all.imp) * 100 },
+    { clickRatio: (temp1.google.click / temp1.all.click) * 100 },
+    { cvrRatio: (temp1.google.cvr / temp1.all.cvr) * 100 },
   ]
   const naverRatio = [
-    { costRatio: new BigNumber(temp1.naver.cost).dividedBy(temp1.all.cost).multipliedBy(100).toNumber() },
+    { costRatio: (temp1.naver.cost / temp1.all.cost) * 100 },
     {
-      convValueRatio: new BigNumber(temp1.naver.convValue).dividedBy(temp1.all.convValue).multipliedBy(100).toNumber(),
+      convValueRatio: (temp1.naver.convValue / temp1.all.convValue) * 100,
     },
-    { impRatio: new BigNumber(temp1.naver.imp).dividedBy(temp1.all.imp).multipliedBy(100).toNumber() },
-    { clickRatio: new BigNumber(temp1.naver.click).dividedBy(temp1.all.click).multipliedBy(100).toNumber() },
-    { cvrRatio: new BigNumber(temp1.naver.cvr).dividedBy(temp1.all.cvr).multipliedBy(100).toNumber() },
+    { impRatio: (temp1.naver.imp / temp1.all.imp) * 100 },
+    { clickRatio: (temp1.naver.click / temp1.all.click) * 100 },
+    { cvrRatio: (temp1.naver.cvr / temp1.all.cvr) * 100 },
   ]
   const kakaoRatio = [
-    { costRatio: new BigNumber(temp1.kakao.cost).dividedBy(temp1.all.cost).multipliedBy(100).toNumber() },
+    { costRatio: (temp1.kakao.cost / temp1.all.cost) * 100 },
     {
-      convValueRatio: new BigNumber(temp1.kakao.convValue).dividedBy(temp1.all.convValue).multipliedBy(100).toNumber(),
+      convValueRatio: (temp1.kakao.convValue / temp1.all.convValue) * 100,
     },
-    { impRatio: new BigNumber(temp1.kakao.imp).dividedBy(temp1.all.imp).multipliedBy(100).toNumber() },
-    { clickRatio: new BigNumber(temp1.kakao.click).dividedBy(temp1.all.click).multipliedBy(100).toNumber() },
-    { cvrRatio: new BigNumber(temp1.kakao.cvr).dividedBy(temp1.all.cvr).multipliedBy(100).toNumber() },
+    { impRatio: (temp1.kakao.imp / temp1.all.imp) * 100 },
+    { clickRatio: (temp1.kakao.click / temp1.all.click) * 100 },
+    { cvrRatio: (temp1.kakao.cvr / temp1.all.cvr) * 100 },
   ]
 
   const facebookData = [
@@ -124,7 +115,7 @@ const MediaData = () => {
             <VictoryAxis tickValues={[1, 2, 3, 4]} tickFormat={['광고비', '매출', '노출수', '클릭수', '전환수']} />
             <VictoryAxis dependentAxis tickFormat={(x) => `${x}%`} />
             <VictoryStack
-              colorScale={['#4FADF7', '#85DA47', '#AC8AF8', '#ff7f50']}
+              colorScale={['#7FA2FF', '#AC8AF8', '#85DA47', '#F9F871']}
               style={{
                 data: { width: 30 },
                 labels: { padding: -20 },
@@ -142,6 +133,17 @@ const MediaData = () => {
             </VictoryStack>
           </VictoryChart>
         </div>
+        <ul className={styles.snsListWrap}>
+          {snsColors.map((c, idx) => {
+            const key = `snsList__${idx}`
+            return (
+              <li key={key} data-value={c[0]} className={styles.snsList} role='presentation'>
+                <CircleIcon style={{ fill: c[1] }} />
+                <span className={styles.title}>{c[0]}</span>
+              </li>
+            )
+          })}
+        </ul>
         <div className={styles.trendDetailWrap}>
           <div className={styles.trendReportList}>
             <span className={styles.chartTitle}>광고비</span>

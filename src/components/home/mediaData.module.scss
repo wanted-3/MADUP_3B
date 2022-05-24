@@ -16,6 +16,17 @@
   background-color: colors.$WHITE;
 }
 
+.snsListWrap {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  padding: 10px;
+}
+
+.snsList {
+  margin-right: 20px;
+}
+
 .trendDetailWrap {
   width: 950px;
   height: 310px;

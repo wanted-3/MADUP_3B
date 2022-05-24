@@ -49,7 +49,7 @@ const systemSlice = createSlice({
           click: new BigNumber(state.value[item.channel].click).plus(item.click).toNumber(),
           ctr: new BigNumber(state.value[item.channel].ctr).plus(item.ctr).toNumber(),
           cpc: new BigNumber(state.value[item.channel].cpc).plus(item.cpc).toNumber(),
-          cvr: new BigNumber(state.value[item.channel].cvr).plus(Math.floor(item.cvr)).toNumber(),
+          cvr: new BigNumber(state.value[item.channel].cvr).plus(item.cvr).toNumber(),
         }
 
         state.value.all = {
@@ -60,7 +60,7 @@ const systemSlice = createSlice({
           click: new BigNumber(state.value.all.click).plus(item.click).toNumber(),
           ctr: new BigNumber(state.value.all.ctr).plus(item.ctr).toNumber(),
           cpc: new BigNumber(state.value.all.cpc).plus(item.cpc).toNumber(),
-          cvr: new BigNumber(state.value.all.cvr).plus(Math.floor(item.cvr)).toNumber(),
+          cvr: new BigNumber(state.value.all.cvr).plus(item.cvr).toNumber(),
         }
       })
     },

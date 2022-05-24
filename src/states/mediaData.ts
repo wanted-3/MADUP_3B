@@ -1,15 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { ImediaData } from 'services/temp'
+import BigNumber from 'bignumber.js'
 
 import type { RootState } from '.'
 
 const INITIAL_STATE = {
   value: {
-    facebook: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0 },
-    naver: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0 },
-    google: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0 },
-    kakao: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0 },
-    all: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0 },
+    facebook: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    naver: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    google: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    kakao: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    all: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
   },
 }
 
@@ -21,6 +22,7 @@ export interface UseNumValue {
   click: number
   ctr: number
   cpc: number
+  cvr: number
 }
 
 export interface SystemState {
@@ -40,23 +42,25 @@ const systemSlice = createSlice({
 
       actionData.map((item: ImediaData) => {
         state.value[item.channel] = {
-          cost: state.value[item.channel].cost + item.cost,
-          convValue: state.value[item.channel].convValue + item.convValue,
-          roas: state.value[item.channel].roas + item.roas,
-          imp: state.value[item.channel].imp + item.imp,
-          click: state.value[item.channel].click + item.click,
-          ctr: state.value[item.channel].ctr + item.ctr,
-          cpc: state.value[item.channel].cpc + item.cpc,
+          cost: new BigNumber(state.value[item.channel].cost).plus(item.cost).toNumber(),
+          convValue: new BigNumber(state.value[item.channel].convValue).plus(item.convValue).toNumber(),
+          roas: new BigNumber(state.value[item.channel].roas).plus(item.roas).toNumber(),
+          imp: new BigNumber(state.value[item.channel].imp).plus(item.imp).toNumber(),
+          click: new BigNumber(state.value[item.channel].click).plus(item.click).toNumber(),
+          ctr: new BigNumber(state.value[item.channel].ctr).plus(item.ctr).toNumber(),
+          cpc: new BigNumber(state.value[item.channel].cpc).plus(item.cpc).toNumber(),
+          cvr: new BigNumber(state.value[item.channel].cvr).plus(Math.floor(item.cvr)).toNumber(),
         }
 
         state.value.all = {
-          cost: state.value.all.cost + item.cost,
-          convValue: state.value.all.convValue + item.convValue,
-          roas: state.value.all.roas + item.roas,
-          imp: state.value.all.imp + item.imp,
-          click: state.value.all.click + item.click,
-          ctr: state.value.all.ctr + item.ctr,
-          cpc: state.value.all.cpc + item.cpc,
+          cost: new BigNumber(state.value.all.cost).plus(item.cost).toNumber(),
+          convValue: new BigNumber(state.value.all.convValue).plus(item.convValue).toNumber(),
+          roas: new BigNumber(state.value.all.roas).plus(item.roas).toNumber(),
+          imp: new BigNumber(state.value.all.imp).plus(item.imp).toNumber(),
+          click: new BigNumber(state.value.all.click).plus(item.click).toNumber(),
+          ctr: new BigNumber(state.value.all.ctr).plus(item.ctr).toNumber(),
+          cpc: new BigNumber(state.value.all.cpc).plus(item.cpc).toNumber(),
+          cvr: new BigNumber(state.value.all.cvr).plus(Math.floor(item.cvr)).toNumber(),
         }
       })
     },

@@ -2,9 +2,10 @@ import styles from './mediaData.module.scss'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { selectadMediaData, test } from 'states/mediaData'
-import { VictoryBar, VictoryChart, VictoryStack, VictoryPortal, VictoryLabel, VictoryAxis } from 'victory'
+import { VictoryBar, VictoryChart, VictoryStack, VictoryPortal, VictoryLabel, VictoryTheme, VictoryAxis } from 'victory'
 import { getMediaDataApi } from 'services/temp'
 import MediaSumData from './MediaSumData'
+import BigNumber from 'bignumber.js'
 
 const temp = [
   {
@@ -34,7 +35,76 @@ const temp = [
 const MediaData = () => {
   const temp1 = useAppSelector(selectadMediaData)
   const dispatch = useAppDispatch()
+  const facebookRatio = [
+    { costRatio: new BigNumber(temp1.facebook.cost).dividedBy(temp1.all.cost).multipliedBy(100).toNumber() },
+    {
+      convValueRatio: new BigNumber(temp1.facebook.convValue)
+        .dividedBy(temp1.all.convValue)
+        .multipliedBy(100)
+        .toNumber(),
+    },
+    { impRatio: new BigNumber(temp1.facebook.imp).dividedBy(temp1.all.imp).multipliedBy(100).toNumber() },
+    { clickRatio: new BigNumber(temp1.facebook.click).dividedBy(temp1.all.click).multipliedBy(100).toNumber() },
+    { cvrRatio: new BigNumber(temp1.facebook.cvr).dividedBy(temp1.all.cvr).multipliedBy(100).toNumber() },
+  ]
+  const googleRatio = [
+    { costRatio: new BigNumber(temp1.google.cost).dividedBy(temp1.all.cost).multipliedBy(100).toNumber() },
+    {
+      convValueRatio: new BigNumber(temp1.google.convValue).dividedBy(temp1.all.convValue).multipliedBy(100).toNumber(),
+    },
+    { impRatio: new BigNumber(temp1.google.imp).dividedBy(temp1.all.imp).multipliedBy(100).toNumber() },
+    { clickRatio: new BigNumber(temp1.google.click).dividedBy(temp1.all.click).multipliedBy(100).toNumber() },
+    { cvrRatio: new BigNumber(temp1.google.cvr).dividedBy(temp1.all.cvr).multipliedBy(100).toNumber() },
+  ]
+  const naverRatio = [
+    { costRatio: new BigNumber(temp1.naver.cost).dividedBy(temp1.all.cost).multipliedBy(100).toNumber() },
+    {
+      convValueRatio: new BigNumber(temp1.naver.convValue).dividedBy(temp1.all.convValue).multipliedBy(100).toNumber(),
+    },
+    { impRatio: new BigNumber(temp1.naver.imp).dividedBy(temp1.all.imp).multipliedBy(100).toNumber() },
+    { clickRatio: new BigNumber(temp1.naver.click).dividedBy(temp1.all.click).multipliedBy(100).toNumber() },
+    { cvrRatio: new BigNumber(temp1.naver.cvr).dividedBy(temp1.all.cvr).multipliedBy(100).toNumber() },
+  ]
+  const kakaoRatio = [
+    { costRatio: new BigNumber(temp1.kakao.cost).dividedBy(temp1.all.cost).multipliedBy(100).toNumber() },
+    {
+      convValueRatio: new BigNumber(temp1.kakao.convValue).dividedBy(temp1.all.convValue).multipliedBy(100).toNumber(),
+    },
+    { impRatio: new BigNumber(temp1.kakao.imp).dividedBy(temp1.all.imp).multipliedBy(100).toNumber() },
+    { clickRatio: new BigNumber(temp1.kakao.click).dividedBy(temp1.all.click).multipliedBy(100).toNumber() },
+    { cvrRatio: new BigNumber(temp1.kakao.cvr).dividedBy(temp1.all.cvr).multipliedBy(100).toNumber() },
+  ]
 
+  const facebookData = [
+    { x: '광고비', y: facebookRatio[0].costRatio },
+    { x: '매출', y: facebookRatio[1].convValueRatio },
+    { x: '노출수', y: facebookRatio[2].impRatio },
+    { x: '클릭수', y: facebookRatio[3].clickRatio },
+    { x: '전환수', y: facebookRatio[4].cvrRatio },
+  ]
+  const googleData = [
+    { x: '광고비', y: googleRatio[0].costRatio },
+    { x: '매출', y: googleRatio[1].convValueRatio },
+    { x: '노출수', y: googleRatio[2].impRatio },
+    { x: '클릭수', y: googleRatio[3].clickRatio },
+    { x: '전환수', y: googleRatio[4].cvrRatio },
+  ]
+  const naverData = [
+    { x: '광고비', y: naverRatio[0].costRatio },
+    { x: '매출', y: naverRatio[1].convValueRatio },
+    { x: '노출수', y: naverRatio[2].impRatio },
+    { x: '클릭수', y: naverRatio[3].clickRatio },
+    { x: '전환수', y: naverRatio[4].cvrRatio },
+  ]
+  const kakaoData = [
+    { x: '광고비', y: kakaoRatio[0].costRatio },
+    { x: '매출', y: kakaoRatio[1].convValueRatio },
+    { x: '노출수', y: kakaoRatio[2].impRatio },
+    { x: '클릭수', y: kakaoRatio[3].clickRatio },
+    { x: '전환수', y: kakaoRatio[4].cvrRatio },
+  ]
+
+  console.log(temp1)
   const handleTemp = () => {
     getMediaDataApi().then((res) => {
       console.log('미디어 데이터', res.data)
@@ -50,9 +120,11 @@ const MediaData = () => {
       </button>
       <div className={styles.trendWrap}>
         <div className={styles.trendChart}>
-          <VictoryChart domainPadding={30}>
+          <VictoryChart domainPadding={40} height={500} width={900} theme={VictoryTheme.material}>
+            <VictoryAxis tickValues={[1, 2, 3, 4]} tickFormat={['광고비', '매출', '노출수', '클릭수', '전환수']} />
+            <VictoryAxis dependentAxis tickFormat={(x) => `${x}%`} />
             <VictoryStack
-              colorScale={['#4FADF7', '#85DA47', '#AC8AF8']}
+              colorScale={['#4FADF7', '#85DA47', '#AC8AF8', '#ff7f50']}
               style={{
                 data: { width: 30 },
                 labels: { padding: -20 },
@@ -63,53 +135,11 @@ const MediaData = () => {
                 </VictoryPortal>
               }
             >
-              <VictoryBar
-                data={[
-                  { x: '광고', y: 100, label: 'C' },
-                  { x: '광고', y: 100, label: 'C' },
-                  { x: '광고', y: 100, label: 'C' },
-                  { x: '광고', y: 100, label: 'C' },
-                  { x: '광고', y: 100, label: 'C' },
-                ]}
-              />
-              <VictoryBar
-                data={[
-                  { x: '광고', y: '광고', label: 'C' },
-                  { x: '광고', y: '광고', label: 'C' },
-                  { x: '광고', y: '광고', label: 'C' },
-                  { x: '광고', y: '광고', label: 'C' },
-                  { x: '광고', y: '광고', label: 'C' },
-                ]}
-              />
-              <VictoryBar
-                data={[
-                  { x: '노출수', label: 'A' },
-                  { x: '노출수', label: 'A' },
-                  { x: '노출수', label: 'A' },
-                  { x: '노출수', label: 'A' },
-                  { x: '노출수', label: 'A' },
-                ]}
-              />
-              <VictoryBar
-                data={[
-                  { x: '클릭수', label: 'D' },
-                  { x: '클릭수', label: 'D' },
-                  { x: '클릭수', label: 'D' },
-                  { x: '클릭수', label: 'D' },
-                  { x: '클릭수', label: 'D' },
-                ]}
-              />
-              <VictoryBar
-                data={[
-                  { x: '전환수', label: 'Z' },
-                  { x: '전환수', label: 'Z' },
-                  { x: '전환수', label: 'Z' },
-                  { x: '전환수', label: 'Z' },
-                  { x: '전환수', label: 'Z' },
-                ]}
-              />
+              <VictoryBar data={facebookData} />
+              <VictoryBar data={googleData} />
+              <VictoryBar data={naverData} />
+              <VictoryBar data={kakaoData} />
             </VictoryStack>
-            <VictoryAxis />
           </VictoryChart>
         </div>
         <div className={styles.trendDetailWrap}>

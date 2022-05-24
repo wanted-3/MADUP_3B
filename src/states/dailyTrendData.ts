@@ -58,6 +58,7 @@ const trendSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     trendDataSum: (state, action) => {
+      state.value = INITIAL_STATE.value
       const actionData = action.payload.data.report.daily.filter(
         (el: Idaily) =>
           action.payload.startDate.valueOf() <= el.date.valueOf() &&
@@ -68,6 +69,7 @@ const trendSlice = createSlice({
           action.payload.prevStart.valueOf() <= el.date.valueOf() &&
           el.date.valueOf() <= action.payload.prevEnd.valueOf()
       )
+      console.log(actionData)
 
       actionData.forEach((el: ITrendResult) => {
         state.value.roas = getPlus(state.value.roas, el.roas)

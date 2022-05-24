@@ -43,11 +43,12 @@ const TotalAdData = () => {
   const dispatch = useAppDispatch()
 
   const handleTest = () => {
-    const startD = dayjs('2022-02-05')
-    const endD = dayjs('2022-02-06')
+    const startD = dayjs(store.get('startDate'))
+    const endD = dayjs(store.get('startDate')).add(6, 'day')
     const tstartDate = startD.subtract(endD.diff(startD, 'day') + 1, 'day').format('YYYY-MM-DD')
     const tendDate = endD.subtract(endD.diff(startD, 'day') + 1, 'day').format('YYYY-MM-DD')
-    console.log(startD, endD, tstartDate, tendDate)
+
+    console.log(startD.format('YYYY-MM-DD'), endD.format('YYYY-MM-DD'), tstartDate, tendDate)
 
     getTrendDataApi().then((res) => {
       // const dailyMap = new Map(res.data.report.daily.map((day) => [day.date, day]))

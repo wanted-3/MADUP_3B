@@ -1,8 +1,8 @@
-import Dropdown from 'components/dropdown'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
-import { MouseEvent, useMemo } from 'react'
+import { MouseEvent, useMemo, useState } from 'react'
 import { ChangeAdListData, selectadListData, selectedState } from 'states/adListData'
+import cx from 'classnames'
 import AdItem from './AdItem'
 import styles from './adList.module.scss'
 
@@ -13,12 +13,19 @@ const AD_STATE_GROUP = [
 ]
 
 const AdList = () => {
+  const [toggle, setToggle] = useState(false)
+
   const dispatch = useAppDispatch()
   const adListData = useAppSelector(selectadListData)
   const adListState = useAppSelector(selectedState)
 
-  const handleAdStateClick = (e: MouseEvent<HTMLSelectElement>) => {
+  const handleToggle = () => {
+    setToggle((prev) => !prev)
+  }
+
+  const handleAdStateClick = (e: MouseEvent<HTMLButtonElement>) => {
     dispatch(ChangeAdListData(e.currentTarget.value))
+    setToggle((prev) => !prev)
   }
 
   const adListStateName = useMemo(() => {
@@ -37,13 +44,21 @@ const AdList = () => {
 
       <div className={styles.itemWrapper}>
         <div className={styles.itemTop}>
-          <Dropdown onClick={handleAdStateClick}>
-            {AD_STATE_GROUP.map((item) => (
-              <option key={item.name} value={item.state}>
-                {item.name}
-              </option>
-            ))}
-          </Dropdown>
+          <div className={styles.toggleButton}>
+            <button type='button' className={styles.selectedToggle} onClick={handleToggle}>
+              {adListStateName}
+            </button>
+
+            <ul className={cx(styles.offToggle, { [styles.onToggle]: toggle })}>
+              {AD_STATE_GROUP.map((item) => (
+                <li key={item.name} className={styles.toggleItem}>
+                  <button type='button' value={item.state} onClick={handleAdStateClick}>
+                    {item.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <button type='button' className={styles.createButton}>
             광고 만들기

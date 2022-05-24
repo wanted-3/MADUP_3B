@@ -21,6 +21,39 @@
       justify-content: space-between;
       margin-bottom: 30px;
 
+      .toggleButton {
+        .selectedToggle {
+          padding: 10px 30px 10px 20px;
+          margin-bottom: 5px;
+          text-align: left;
+          border: 1px solid colors.$GRAYD;
+          border-radius: 10px;
+        }
+
+        .offToggle {
+          display: none;
+        }
+
+        .onToggle {
+          display: block;
+          border: 1px solid colors.$GRAYD;
+        }
+
+        .toggleItem {
+          width: 100px;
+          border-bottom: 1px solid colors.$GRAYD;
+
+          button {
+            width: 100%;
+            padding: 10px 20px;
+
+            &:hover {
+              background-color: colors.$GRAYD;
+            }
+          }
+        }
+      }
+
       .adStateButton {
         padding: 0 15px;
         border: 1px solid colors.$GRAYD;
@@ -28,6 +61,7 @@
       }
 
       .createButton {
+        height: 40px;
         padding: 10px 15px;
         color: colors.$WHITE;
         background-color: #586cf5;

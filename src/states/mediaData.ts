@@ -6,15 +6,16 @@ import type { RootState } from '.'
 
 const INITIAL_STATE = {
   value: {
-    facebook: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
-    naver: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
-    google: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
-    kakao: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
-    all: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    facebook: { date: '', cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    naver: { date: '', cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    google: { date: '', cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    kakao: { date: '', cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    all: { date: '', cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
   },
 }
 
 export interface UseNumValue {
+  date: string
   cost: number
   convValue: number
   roas: number
@@ -42,6 +43,7 @@ const systemSlice = createSlice({
 
       actionData.map((item: ImediaData) => {
         state.value[item.channel] = {
+          date: item.date,
           cost: new BigNumber(state.value[item.channel].cost).plus(item.cost).toNumber(),
           convValue: new BigNumber(state.value[item.channel].convValue).plus(item.convValue).toNumber(),
           roas: new BigNumber(state.value[item.channel].roas).plus(item.roas).toNumber(),
@@ -53,6 +55,7 @@ const systemSlice = createSlice({
         }
 
         state.value.all = {
+          date: item.date,
           cost: new BigNumber(state.value.all.cost).plus(item.cost).toNumber(),
           convValue: new BigNumber(state.value.all.convValue).plus(item.convValue).toNumber(),
           roas: new BigNumber(state.value.all.roas).plus(item.roas).toNumber(),

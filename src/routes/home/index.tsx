@@ -1,6 +1,6 @@
 import DatePicker from 'components/home/DatePicker'
-import TotalAdData from 'components/home/TotalAdData'
-import MediaData from 'components/home/MediaData'
+import TotalAdData from 'components/home/totalAdData'
+import MediaData from 'components/home/mediaData'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useMount } from 'react-use'
 import { getTrendDataApi } from 'services/temp'

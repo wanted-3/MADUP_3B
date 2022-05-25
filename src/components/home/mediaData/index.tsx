@@ -2,16 +2,7 @@ import styles from './mediaData.module.scss'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { selectadMediaData, test } from 'states/mediaData'
-import {
-  VictoryBar,
-  VictoryChart,
-  VictoryStack,
-  VictoryPortal,
-  VictoryLabel,
-  VictoryTheme,
-  VictoryAxis,
-  VictoryTooltip,
-} from 'victory'
+import { VictoryBar, VictoryChart, VictoryStack, VictoryTheme, VictoryAxis, VictoryTooltip } from 'victory'
 import { getMediaDataApi } from 'services/temp'
 import MediaSumData from './MediaSumData'
 import { CircleIcon } from 'assets/svgs'
@@ -103,7 +94,6 @@ const MediaData = () => {
 
   const handleTemp = () => {
     getMediaDataApi().then((res) => {
-      console.log('미디어 데이터', res.data)
       dispatch(test({ data: res.data, startDate: '2022-02-01', endDate: '2022-02-02' }))
     })
   }

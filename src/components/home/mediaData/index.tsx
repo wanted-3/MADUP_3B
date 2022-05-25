@@ -157,9 +157,7 @@ const MediaData = () => {
               <MediaSumData title='구글' {...temp1.google} />
               <MediaSumData title='네이버' {...temp1.naver} />
               <MediaSumData title='카카오' {...temp1.kakao} />
-              <div className={styles.total}>
-                <MediaSumData title='합계' {...temp1.all} />
-              </div>
+              <MediaSumData title='합계' {...temp1.all} />
             </tbody>
           </table>
         </div>

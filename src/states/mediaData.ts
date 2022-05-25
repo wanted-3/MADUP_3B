@@ -34,6 +34,8 @@ const systemSlice = createSlice({
   initialState: INITIAL_STATE as SystemState,
   reducers: {
     test: (state, action) => {
+      state.value = INITIAL_STATE.value
+
       const actionData = action.payload.data.filter(
         (item: ImediaData) => action.payload.startDate <= item.date && item.date <= action.payload.endDate
       )

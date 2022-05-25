@@ -1,15 +1,15 @@
+import { MouseEvent, ReactNode } from 'react'
 import styles from './dropdown.module.scss'
 
 interface Props {
-  list: string[]
+  onClick?: (event: MouseEvent<HTMLSelectElement>) => void
+  children: ReactNode
 }
 
-const Dropdown = ({ list }: Props) => {
+const Dropdown = ({ onClick, children }: Props) => {
   return (
-    <select className={styles.dropDown}>
-      {list.map((el) => (
-        <option key={`DropdownKey__${el}`}>{el}</option>
-      ))}
+    <select className={styles.dropDown} onClick={onClick}>
+      {children}
     </select>
   )
 }

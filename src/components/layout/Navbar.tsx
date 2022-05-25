@@ -13,7 +13,14 @@ const Navbar = () => {
       <hr className={styles.divideLine} />
       <div className={styles.dropDown}>
         <h3>서비스</h3>
-        <Dropdown list={SERVICE_MENU} />
+
+        <Dropdown>
+          {SERVICE_MENU.map((item) => (
+            <option key={`DropdownKey_${item}`} value={item}>
+              {item}
+            </option>
+          ))}
+        </Dropdown>
       </div>
       <div className={styles.navMenu}>
         <h3>광고 센터</h3>

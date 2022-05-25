@@ -3,26 +3,15 @@ import styles from './totalAdData.module.scss'
 
 import { useAppSelector } from 'hooks/useAppSelector'
 import SelectButton from './SelectButton'
-import Dropdown from 'components/dropdown'
 
 import { trendData } from 'states/dailyTrendData'
 import { useAppDispatch } from 'hooks/useAppDispatch'
-import { temp, weeklyData } from 'states/weeklyTrendData'
+import { weeklyData } from 'states/weeklyTrendData'
 import TrendDataChart from './TrendDataChart'
 import { selectedOption, setFirstOption, setSecondOption } from 'states/selectedOptions'
-import { getAdListApi, getTrendDataApi } from 'services/temp'
 import { useMemo } from 'react'
 
 // 매출 = ROAS / 100 * 광고비
-const dataStructure = [
-  { value: 0, category: 'ROAS' },
-  { value: 0, category: '광고비' },
-  { value: 0, category: '노출 수' },
-  { value: 0, category: '클릭 수' },
-  { value: 0, category: '전환 수' },
-  { value: 0, category: '매출' },
-]
-
 // {
 //   "imp": 51479, // 노출 수
 //   "click": 559, // 클릭 수
@@ -87,8 +76,6 @@ const TotalAdData = () => {
     }
     return weeklyDataResult.CONVVALUE
   }, [selectedOptions, weeklyDataResult])
-
-  console.log(data)
 
   return (
     <section className={styles.totalAdData}>

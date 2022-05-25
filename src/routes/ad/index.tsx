@@ -2,7 +2,7 @@ import AdList from 'components/ad/AdList'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useMount } from 'react-use'
 import { getAdListApi } from 'services/temp'
-import { firstTemp } from 'states/adListData'
+import { mountAdListData } from 'states/adListData'
 
 import styles from './ad.module.scss'
 
@@ -11,7 +11,7 @@ const Ad = () => {
 
   useMount(() => {
     getAdListApi().then((res) => {
-      dispatch(firstTemp(res.data))
+      dispatch(mountAdListData(res.data))
     })
   })
 

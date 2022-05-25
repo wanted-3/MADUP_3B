@@ -39,7 +39,6 @@ yarn install && yarn start
 |뷰|달력 선택|
 |:---:|:---:|
 |<img src="https://user-images.githubusercontent.com/62868465/170338166-4867b770-146a-4e1a-a252-b00b67194f48.gif" width="350"/>|<img src="https://user-images.githubusercontent.com/62868465/170338270-55ab85dc-cc6b-4db7-b47a-47b3c1965e18.gif" width="350"/>|
-|
 
 |라인 그래프|차트 그래프|
 |:---:|:---:|

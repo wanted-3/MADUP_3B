@@ -9,9 +9,7 @@ const MediaData = () => {
       <h1 className={styles.title}>매체현황</h1>
       <div className={styles.mediaDataWrap}>
         <MediaChart />
-        <div className={styles.mediaDataTable}>
-          <MediaDataTable />
-        </div>
+        <MediaDataTable />
       </div>
     </div>
   )

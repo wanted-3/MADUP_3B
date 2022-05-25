@@ -92,14 +92,14 @@ const TotalAdData = () => {
               isSecondOption
             />
           </div>
-
           <select className={styles.termSelector}>
             <option>주간</option>
             <option>일별</option>
           </select>
         </div>
-
-        <WeeklyDataChart firstOption={firstOptionData} secondOption={secondOptionData} unit={chartUnit} />
+        <div className={styles.chart}>
+          <WeeklyDataChart firstOption={firstOptionData} secondOption={secondOptionData} unit={chartUnit} />
+        </div>
       </div>
     </section>
   )

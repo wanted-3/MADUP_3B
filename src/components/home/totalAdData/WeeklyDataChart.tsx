@@ -13,7 +13,7 @@ import dayjs from 'dayjs'
 
 import type { IData } from 'states/weeklyTrendData'
 
-import styles from './weeklyDataChart.module.scss'
+// import styles from './weeklyDataChart.module.scss'
 
 interface Props {
   firstOption: IData
@@ -44,49 +44,47 @@ const WeeklyDataChart = ({ firstOption, secondOption, unit }: Props) => {
   }, [maximumY])
 
   return (
-    <div className={styles.weeklyChart}>
-      <VictoryChart theme={VictoryTheme.material} width={700} height={400} domain={{ y: [0, 1] }}>
-        <VictoryAxis
-          style={{ grid: { strokeWidth: 0 } }}
-          tickValues={dateTick}
-          tickFormat={(t) => dayjs(t).format('MM월 DD일')}
-        />
-        {chartData.map((d, i) => {
-          const key = `chartAxis__${i}`
-          return (
-            <VictoryAxis
-              dependentAxis
-              key={key}
-              offsetX={xOffsets[i]}
-              style={{
-                axis: { stroke: lineColors[i] },
-                ticks: { padding: tickPadding[i] },
-                tickLabels: { fill: lineColors[i], textAnchor: anchors[i] },
-                grid: { stroke: 'grey', strokeWidth: 1 },
-              }}
-              tickFormat={(t) => `${Math.round(t * ceilDataList[i])}${unit}`}
-            />
-          )
-        })}
-        {chartData.map((d, i) => {
-          const key = `chartData__${i}`
-          return (
-            <VictoryGroup
-              key={key}
-              data={d}
-              color={lineColors[i]}
-              style={{ data: { stroke: lineColors[i] }, labels: { fill: '#FFFFFF' } }}
-              y={(datum) => datum.y / ceilDataList[i]}
-              labels={({ datum }) => datum.y}
-              labelComponent={<VictoryTooltip cornerRadius={5} flyoutStyle={{ fill: '#3A474E' }} />}
-            >
-              <VictoryLine />
-              <VictoryScatter />
-            </VictoryGroup>
-          )
-        })}
-      </VictoryChart>
-    </div>
+    <VictoryChart theme={VictoryTheme.material} width={700} height={400} domain={{ y: [0, 1] }}>
+      <VictoryAxis
+        style={{ grid: { strokeWidth: 0 } }}
+        tickValues={dateTick}
+        tickFormat={(t) => dayjs(t).format('MM월 DD일')}
+      />
+      {chartData.map((d, i) => {
+        const key = `chartAxis__${i}`
+        return (
+          <VictoryAxis
+            dependentAxis
+            key={key}
+            offsetX={xOffsets[i]}
+            style={{
+              axis: { stroke: lineColors[i] },
+              ticks: { padding: tickPadding[i] },
+              tickLabels: { fill: lineColors[i], textAnchor: anchors[i] },
+              grid: { stroke: 'grey', strokeWidth: 1 },
+            }}
+            tickFormat={(t) => `${Math.round(t * ceilDataList[i])}${unit}`}
+          />
+        )
+      })}
+      {chartData.map((d, i) => {
+        const key = `chartData__${i}`
+        return (
+          <VictoryGroup
+            key={key}
+            data={d}
+            color={lineColors[i]}
+            style={{ data: { stroke: lineColors[i] }, labels: { fill: '#FFFFFF' } }}
+            y={(datum) => datum.y / ceilDataList[i]}
+            labels={({ datum }) => datum.y}
+            labelComponent={<VictoryTooltip cornerRadius={5} flyoutStyle={{ fill: '#3A474E' }} />}
+          >
+            <VictoryLine />
+            <VictoryScatter />
+          </VictoryGroup>
+        )
+      })}
+    </VictoryChart>
   )
 }
 

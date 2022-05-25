@@ -3,18 +3,24 @@
 .mediaSumWrap {
   display: flex;
   justify-content: space-between;
-  width: 1500px;
   padding: 14px;
   border-bottom: 1px solid colors.$GRAYD;
 
   td {
-    width: 110px;
-    text-align: right;
-
-    &:first-child {
-      text-align: left;
+    :first-child {
+      display: none;
     }
   }
+}
+
+.snsDetail {
+  width: 70px;
+  text-align: right;
+}
+
+.snsTitle {
+  width: 70px;
+  text-align: left;
 }
 
 .total {

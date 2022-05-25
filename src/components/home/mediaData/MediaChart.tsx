@@ -1,4 +1,12 @@
-import { VictoryBar, VictoryChart, VictoryStack, VictoryTheme, VictoryAxis, VictoryTooltip } from 'victory'
+import {
+  VictoryBar,
+  VictoryChart,
+  VictoryStack,
+  VictoryTheme,
+  VictoryAxis,
+  VictoryTooltip,
+  VictoryLegend,
+} from 'victory'
 
 import { useAppSelector } from 'hooks/useAppSelector'
 
@@ -48,6 +56,15 @@ const MediaChart = () => {
           <VictoryBar data={naverData} style={{ labels: { fill: 'white' } }} />
           <VictoryBar data={kakaoData} style={{ labels: { fill: 'white' } }} cornerRadius={{ top: 10 }} />
         </VictoryStack>
+        <VictoryLegend
+          width={700}
+          x={550}
+          y={500}
+          orientation='horizontal'
+          gutter={30}
+          colorScale={['#7FA2FF', '#AC8AF8', '#85DA47', '#F9F871']}
+          data={[{ name: '페이스북' }, { name: '구글' }, { name: '네이버' }, { name: '카카오' }]}
+        />
       </VictoryChart>
     </div>
   )

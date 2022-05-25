@@ -3,14 +3,14 @@ import styles from './userBar.module.scss'
 
 const UserBar = () => {
   return (
-    <header className={styles.userBar}>
+    <div className={styles.userBar}>
       <BellIcon className={styles.bell} />
       <SettingIcon className={styles.setting} />
       <div className={styles.user}>
         <UserIcon />
         <span>3B팀 님</span>
       </div>
-    </header>
+    </div>
   )
 }
 

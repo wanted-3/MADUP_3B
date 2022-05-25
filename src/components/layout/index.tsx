@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
 
-import NavBar from './NavBar'
+import NavBar from './Navbar'
 import UserBar from './UserBar'
 
 import styles from './layout.module.scss'

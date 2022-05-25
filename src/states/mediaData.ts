@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, current } from '@reduxjs/toolkit'
 import { ImediaData } from 'services/temp'
 import BigNumber from 'bignumber.js'
 
@@ -6,16 +6,15 @@ import type { RootState } from '.'
 
 const INITIAL_STATE = {
   value: {
-    facebook: { date: '', cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
-    naver: { date: '', cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
-    google: { date: '', cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
-    kakao: { date: '', cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
-    all: { date: '', cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    facebook: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    naver: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    google: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    kakao: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    all: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
   },
 }
 
 export interface UseNumValue {
-  date: string
   cost: number
   convValue: number
   roas: number
@@ -37,7 +36,11 @@ const systemSlice = createSlice({
   initialState: INITIAL_STATE as SystemState,
   reducers: {
     test: (state, action) => {
-      state.value = INITIAL_STATE.value
+      state.value.all = INITIAL_STATE.value.all
+      state.value.facebook = INITIAL_STATE.value.facebook
+      state.value.google = INITIAL_STATE.value.google
+      state.value.kakao = INITIAL_STATE.value.kakao
+      state.value.naver = INITIAL_STATE.value.naver
 
       const actionData = action.payload.data.filter(
         (item: ImediaData) => action.payload.startDate <= item.date && item.date <= action.payload.endDate
@@ -45,7 +48,6 @@ const systemSlice = createSlice({
 
       actionData.forEach((item: ImediaData) => {
         state.value[item.channel] = {
-          date: item.date,
           cost: new BigNumber(state.value[item.channel].cost).plus(item.cost).toNumber(),
           convValue: new BigNumber(state.value[item.channel].convValue).plus(item.convValue).toNumber(),
           roas: new BigNumber(state.value[item.channel].roas).plus(item.roas).toNumber(),
@@ -57,7 +59,6 @@ const systemSlice = createSlice({
         }
 
         state.value.all = {
-          date: item.date,
           cost: new BigNumber(state.value.all.cost).plus(item.cost).toNumber(),
           convValue: new BigNumber(state.value.all.convValue).plus(item.convValue).toNumber(),
           roas: new BigNumber(state.value.all.roas).plus(item.roas).toNumber(),

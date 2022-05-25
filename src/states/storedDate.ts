@@ -25,7 +25,7 @@ const systemSlice = createSlice({
       const endDate = dayjs(startDate).add(6, 'd').format('YYYY-MM-DD')
       state.value.startDate = startDate
       state.value.endDate = endDate
-      console.log(current(state.value))
+      // console.log(current(state.value))
     },
   },
 })

@@ -4,13 +4,14 @@ import styles from './datePicker.module.scss'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
-import { getTrendDataApi } from 'services/temp'
+import { getMediaDataApi, getTrendDataApi } from 'services/temp'
 import { trendDataSum } from 'states/dailyTrendData'
 import { selectedDate, setStartDate } from 'states/storedDate'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { useEffect, useMemo } from 'react'
 import { temp } from 'states/weeklyTrendData'
+import { test } from 'states/mediaData'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -47,6 +48,18 @@ const DatePicker = () => {
       )
     })
   }, [EndDate, StartDate, dispatch])
+
+  useEffect(() => {
+    getMediaDataApi().then((res) => {
+      dispatch(
+        test({
+          data: res.data,
+          startDate: dayjs(StartDate).format('YYYY-MM-DD'),
+          endDate: dayjs(EndDate).format('YYYY-MM-DD'),
+        })
+      )
+    })
+  }, [dispatch, EndDate, StartDate])
 
   return (
     <>

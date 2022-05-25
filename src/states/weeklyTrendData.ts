@@ -71,7 +71,6 @@ const weeklySlice = createSlice({
           CONVVALUE: [...state.value.CONVVALUE, { x: el.date, y: el.convValue }],
         }
       })
-      console.log(state.value)
     },
   },
 })

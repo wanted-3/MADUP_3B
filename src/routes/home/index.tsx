@@ -10,11 +10,11 @@ import styles from './home.module.scss'
 const Home = () => {
   const dispatch = useAppDispatch()
 
-  useMount(() => {
-    getTrendDataApi().then((res) => {
-      // console.log('트랜드 데이터', res.data)
-    })
-  })
+  // useMount(() => {
+  //   getTrendDataApi().then((res) => {
+  //     console.log('트랜드 데이터', res.data)
+  //   })
+  // })
 
   return (
     <div className={styles.home}>

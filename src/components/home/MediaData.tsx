@@ -1,124 +1,51 @@
 import styles from './mediaData.module.scss'
-import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
-import { selectadMediaData, test } from 'states/mediaData'
-import {
-  VictoryBar,
-  VictoryChart,
-  VictoryStack,
-  VictoryPortal,
-  VictoryLabel,
-  VictoryTheme,
-  VictoryAxis,
-  VictoryTooltip,
-} from 'victory'
-import { getMediaDataApi } from 'services/temp'
+import { selectadMediaData, UseNumValue } from 'states/mediaData'
+import { VictoryBar, VictoryChart, VictoryStack, VictoryTheme, VictoryAxis, VictoryTooltip } from 'victory'
 import MediaSumData from './MediaSumData'
 import { CircleIcon } from 'assets/svgs'
 
-const snsColors = [
-  ['페이스북', '#7FA2FF'],
-  ['구글', '#AC8AF8'],
-  ['네이버', '#85DA47'],
-  ['카카오', '#F9F871'],
+const SNS_COLORS = [
+  { name: '페이스북', color: '#7FA2FF' },
+  { name: '구글', color: '#AC8AF8' },
+  { name: '네이버', color: '#85DA47' },
+  { name: '카카오', color: '#F9F871' },
 ]
 
-// "channel": "google", //
-//     "date": "2022-02-01", // 날짜
-//     "imp": 50, // 광고노출
-//     "click": 7, // 클릭수
-//     "cost": 2098, // 비용
-//     "convValue": 0, // 매출
-//     "ctr": 14.0000, // 클릭률
-//     "cvr": 0.0000, // 전환률
-//     "cpc": 299.7143, // 클릭당 비용
-//     "cpa": 0.0000, // 획득당 비용 or 행동당 비용
-//     "roas": 0.0000 // 광고 지출 대비 수익률
+const mediaChartDataFunc = (allData: UseNumValue, snsData: UseNumValue) => {
+  const ratioData = {
+    costRatio: (snsData.cost / allData.cost) * 100 || 0,
+    convValueRatio: (snsData.convValue / allData.convValue) * 100 || 0,
+    impRatio: (snsData.imp / allData.imp) * 100 || 0,
+    clickRatio: (snsData.click / allData.click) * 100 || 0,
+    cvrRatio: (snsData.cvr / allData.cvr) * 100 || 0,
+  }
+
+  return [
+    { x: '광고비', y: ratioData.costRatio, label: snsData.cost },
+    { x: '매출', y: ratioData.convValueRatio, label: snsData.convValue },
+    { x: '노출수', y: ratioData.impRatio, label: snsData.imp },
+    { x: '클릭수', y: ratioData.clickRatio, label: snsData.click },
+    { x: '전환수', y: ratioData.cvrRatio, label: snsData.cvr },
+  ]
+}
 
 const MediaData = () => {
-  const temp1 = useAppSelector(selectadMediaData)
-  const dispatch = useAppDispatch()
+  const mediaData = useAppSelector(selectadMediaData)
 
-  const facebookRatio = {
-    costRatio: (temp1.facebook.cost / temp1.all.cost) * 100 || 0,
-    convValueRatio: (temp1.facebook.convValue / temp1.all.convValue) * 100 || 0,
-    impRatio: (temp1.facebook.imp / temp1.all.imp) * 100 || 0,
-    clickRatio: (temp1.facebook.click / temp1.all.click) * 100 || 0,
-    cvrRatio: (temp1.facebook.cvr / temp1.all.cvr) * 100 || 0,
-  }
-
-  const googleRatio = {
-    costRatio: (temp1.google.cost / temp1.all.cost) * 100 || 0,
-    convValueRatio: (temp1.google.convValue / temp1.all.convValue) * 100 || 0,
-    impRatio: (temp1.google.imp / temp1.all.imp) * 100 || 0,
-    clickRatio: (temp1.google.click / temp1.all.click) * 100 || 0,
-    cvrRatio: (temp1.google.cvr / temp1.all.cvr) * 100 || 0,
-  }
-
-  const naverRatio = {
-    costRatio: (temp1.naver.cost / temp1.all.cost) * 100 || 0,
-    convValueRatio: (temp1.naver.convValue / temp1.all.convValue) * 100 || 0,
-    impRatio: (temp1.naver.imp / temp1.all.imp) * 100 || 0,
-    clickRatio: (temp1.naver.click / temp1.all.click) * 100 || 0,
-    cvrRatio: (temp1.naver.cvr / temp1.all.cvr) * 100 || 0,
-  }
-
-  const kakaoRatio = {
-    costRatio: (temp1.kakao.cost / temp1.all.cost) * 100 || 0,
-    convValueRatio: (temp1.kakao.convValue / temp1.all.convValue) * 100 || 0,
-    impRatio: (temp1.kakao.imp / temp1.all.imp) * 100 || 0,
-    clickRatio: (temp1.kakao.click / temp1.all.click) * 100 || 0,
-    cvrRatio: (temp1.kakao.cvr / temp1.all.cvr) * 100 || 0,
-  }
-
-  const facebookData = [
-    { x: '광고비', y: facebookRatio.costRatio, label: facebookRatio.costRatio },
-    { x: '매출', y: facebookRatio.convValueRatio, label: facebookRatio.convValueRatio },
-    { x: '노출수', y: facebookRatio.impRatio, label: facebookRatio.impRatio },
-    { x: '클릭수', y: facebookRatio.clickRatio, label: facebookRatio.clickRatio },
-    { x: '전환수', y: facebookRatio.cvrRatio, label: facebookRatio.cvrRatio },
-  ]
-
-  const googleData = [
-    { x: '광고비', y: googleRatio.costRatio, label: googleRatio.costRatio },
-    { x: '매출', y: googleRatio.convValueRatio, label: googleRatio.convValueRatio },
-    { x: '노출수', y: googleRatio.impRatio, label: googleRatio.impRatio },
-    { x: '클릭수', y: googleRatio.clickRatio, label: googleRatio.clickRatio },
-    { x: '전환수', y: googleRatio.cvrRatio, label: googleRatio.cvrRatio },
-  ]
-  const naverData = [
-    { x: '광고비', y: naverRatio.costRatio, label: naverRatio.costRatio },
-    { x: '매출', y: naverRatio.convValueRatio, label: naverRatio.convValueRatio },
-    { x: '노출수', y: naverRatio.impRatio, label: naverRatio.impRatio },
-    { x: '클릭수', y: naverRatio.clickRatio, label: naverRatio.clickRatio },
-    { x: '전환수', y: naverRatio.cvrRatio, label: naverRatio.cvrRatio },
-  ]
-  const kakaoData = [
-    { x: '광고비', y: kakaoRatio.costRatio, label: kakaoRatio.costRatio },
-    { x: '매출', y: kakaoRatio.convValueRatio, label: kakaoRatio.convValueRatio },
-    { x: '노출수', y: kakaoRatio.impRatio, label: kakaoRatio.impRatio },
-    { x: '클릭수', y: kakaoRatio.clickRatio, label: kakaoRatio.clickRatio },
-    { x: '전환수', y: kakaoRatio.cvrRatio, label: kakaoRatio.cvrRatio },
-  ]
-
-  const handleTemp = () => {
-    getMediaDataApi().then((res) => {
-      console.log('미디어 데이터', res.data)
-      dispatch(test({ data: res.data, startDate: '2022-02-01', endDate: '2022-02-02' }))
-    })
-  }
+  const facebookData = mediaChartDataFunc(mediaData.all, mediaData.facebook)
+  const googleData = mediaChartDataFunc(mediaData.all, mediaData.google)
+  const naverData = mediaChartDataFunc(mediaData.all, mediaData.naver)
+  const kakaoData = mediaChartDataFunc(mediaData.all, mediaData.kakao)
 
   return (
     <div className={styles.mediaData}>
       <h1 className={styles.title}>매체현황</h1>
-      <button type='button' onClick={handleTemp}>
-        click
-      </button>
       <div className={styles.trendWrap}>
         <div className={styles.trendChart}>
           <VictoryChart domainPadding={40} height={500} width={900} theme={VictoryTheme.material}>
             <VictoryAxis tickValues={[1, 2, 3, 4]} tickFormat={['광고비', '매출', '노출수', '클릭수', '전환수']} />
-            <VictoryAxis dependentAxis tickFormat={(x) => `${x}%`} />
+            <VictoryAxis dependentAxis tickFormat={(x) => (x < 1 ? `${0}%` : `${x}%`)} />
             <VictoryStack
               colorScale={['#7FA2FF', '#AC8AF8', '#85DA47', '#F9F871']}
               style={{
@@ -137,16 +64,14 @@ const MediaData = () => {
             </VictoryStack>
           </VictoryChart>
         </div>
+
         <ul className={styles.snsListWrap}>
-          {snsColors.map((c, idx) => {
-            const key = `snsList__${idx}`
-            return (
-              <li key={key} data-value={c[0]} className={styles.snsList} role='presentation'>
-                <CircleIcon style={{ fill: c[1] }} />
-                <span className={styles.title}>{c[0]}</span>
-              </li>
-            )
-          })}
+          {SNS_COLORS.map((item) => (
+            <li key={`snsList-${item.name}`} data-value={item.name} className={styles.snsList} role='presentation'>
+              <CircleIcon style={{ fill: item.color }} />
+              <span className={styles.title}>{item.name}</span>
+            </li>
+          ))}
         </ul>
         <div className={styles.trendDetailWrap}>
           <table>
@@ -163,13 +88,11 @@ const MediaData = () => {
               </tr>
             </thead>
             <tbody>
-              <MediaSumData title='페이스북' {...temp1.facebook} />
-              <MediaSumData title='구글' {...temp1.google} />
-              <MediaSumData title='네이버' {...temp1.naver} />
-              <MediaSumData title='카카오' {...temp1.kakao} />
-              <div className={styles.total}>
-                <MediaSumData title='합계' {...temp1.all} />
-              </div>
+              <MediaSumData title='페이스북' {...mediaData.facebook} />
+              <MediaSumData title='구글' {...mediaData.google} />
+              <MediaSumData title='네이버' {...mediaData.naver} />
+              <MediaSumData title='카카오' {...mediaData.kakao} />
+              <MediaSumData title='합계' {...mediaData.all} />
             </tbody>
           </table>
         </div>

@@ -1,5 +1,7 @@
-import { DecrementIcon, IncrementIcon } from 'assets/svgs'
 import BigNumber from 'bignumber.js'
+
+import { DecrementIcon, IncrementIcon } from 'assets/svgs'
+
 import styles from './adData.module.scss'
 
 interface Props {

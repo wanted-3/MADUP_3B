@@ -1,12 +1,14 @@
-import { AdIcon, GuideIcon, HomeIcon, LogoIcon } from 'assets/svgs'
-import Dropdown from 'components/dropdown'
+import cx from 'classnames'
 import { NavLink } from 'react-router-dom'
-import { cx } from 'styles'
+
+import { AdIcon, GuideIcon, HomeIcon, LogoIcon } from 'assets/svgs'
+import Dropdown from 'components/common/Dropdown'
+
 import styles from './navBar.module.scss'
 
 const SERVICE_MENU = ['매드업', '서비스 추가하기']
 
-const Navbar = () => {
+const NavBar = () => {
   return (
     <aside className={styles.navigationBar}>
       <LogoIcon className={styles.logoIcon} />
@@ -32,7 +34,10 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink className={({ isActive }) => cx(styles.navItem, { [styles.clicked]: isActive })} to='ad'>
+            <NavLink
+              className={({ isActive }) => cx(styles.navItem, { [styles.clicked]: isActive })}
+              to='advertiseManage'
+            >
               <AdIcon className={styles.navIcon} />
               광고관리
             </NavLink>
@@ -54,4 +59,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default NavBar

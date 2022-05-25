@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import type { RootState } from '.'
-import { Idaily } from './dailyTrendData'
+import type { IDaily } from './trendData'
 
 export interface IData {
   value: {
@@ -36,15 +36,15 @@ const weeklySlice = createSlice({
   name: 'weeklyTrendData',
   initialState: INITIAL_STATE,
   reducers: {
-    temp: (state, action) => {
+    getWeeklyTrendData: (state, action) => {
       state.value = INITIAL_STATE.value
       const actionData = action.payload.data.report.daily.filter(
-        (el: Idaily) =>
+        (el: IDaily) =>
           action.payload.startDate.valueOf() <= el.date.valueOf() &&
           el.date.valueOf() <= action.payload.endDate.valueOf()
       )
 
-      actionData.forEach((el: Idaily) => {
+      actionData.forEach((el: IDaily) => {
         state.value = {
           ROAS: { value: [...state.value.ROAS.value, { x: el.date, y: el.roas }], color: '#4FADF7' },
           COST: { value: [...state.value.COST.value, { x: el.date, y: el.cost }], color: '#AC8AF8' },
@@ -58,7 +58,7 @@ const weeklySlice = createSlice({
   },
 })
 
-export const { temp } = weeklySlice.actions
+export const { getWeeklyTrendData } = weeklySlice.actions
 
 export default weeklySlice.reducer
 

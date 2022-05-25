@@ -3,7 +3,7 @@ import { getMinus, getPlus } from 'utils/num'
 
 import type { RootState } from '.'
 
-export interface Idaily {
+export interface IDaily {
   imp: number
   click: number
   cost: number
@@ -54,18 +54,18 @@ const INITIAL_STATE: trendState = {
 }
 
 const trendSlice = createSlice({
-  name: 'dailyTrendData',
+  name: 'trendData',
   initialState: INITIAL_STATE,
   reducers: {
     trendDataSum: (state, action) => {
       state.value = INITIAL_STATE.value
       const actionData = action.payload.data.report.daily.filter(
-        (el: Idaily) =>
+        (el: IDaily) =>
           action.payload.startDate.valueOf() <= el.date.valueOf() &&
           el.date.valueOf() <= action.payload.endDate.valueOf()
       )
       const prevData = action.payload.data.report.daily.filter(
-        (el: Idaily) =>
+        (el: IDaily) =>
           action.payload.prevStart.valueOf() <= el.date.valueOf() &&
           el.date.valueOf() <= action.payload.prevEnd.valueOf()
       )
@@ -118,4 +118,4 @@ export const { trendDataSum } = trendSlice.actions
 
 export default trendSlice.reducer
 
-export const trendData = (state: RootState) => state.dailyTrendData.value
+export const trendDataSet = (state: RootState) => state.trendData.value

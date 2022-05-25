@@ -1,22 +1,16 @@
 @use '/src/styles/constants/colors';
 
-.mediaSumWrap {
+.mediaDataIndex {
   display: flex;
   justify-content: space-between;
   width: 1500px;
-  padding: 14px;
+  padding: 15px;
+  border-top: 1px solid colors.$GRAYD;
   border-bottom: 1px solid colors.$GRAYD;
 
-  td {
+  th {
     width: 110px;
+    color: colors.$GRAYA;
     text-align: right;
-
-    &:first-child {
-      text-align: left;
-    }
   }
-}
-
-.total {
-  color: colors.$BLUE;
 }

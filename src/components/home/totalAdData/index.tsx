@@ -1,84 +1,76 @@
-import AdData from './AdData'
-import styles from './totalAdData.module.scss'
-
-import { useAppSelector } from 'hooks/useAppSelector'
-import SelectButton from './SelectButton'
-
-import { trendData } from 'states/dailyTrendData'
-import { useAppDispatch } from 'hooks/useAppDispatch'
-import { weeklyData } from 'states/weeklyTrendData'
-import TrendDataChart from './TrendDataChart'
-import { selectedOption, setFirstOption, setSecondOption } from 'states/selectedOptions'
 import { useMemo } from 'react'
 
-// 매출 = ROAS / 100 * 광고비
-// {
-//   "imp": 51479, // 노출 수
-//   "click": 559, // 클릭 수
-//   "cost": 371790, // 광고비
-//   "conv": 37, // 전환 수
-//   "convValue": 3668610,
-//   "ctr": 1.09, // 클릭률
-//   "cvr": 6.62, // 전환율
-//   "cpc": 665.1, // click per click
-//   "cpa": 10048.38, // click per action
-//   "roas": 986.74, // 광고 지출 대비 수익률
-//   "date": "2022-02-01"
-// },
+import { selectedOption, setFirstOption, setSecondOption } from 'states/selectedOptions'
+import { IData, weeklyData } from 'states/weeklyTrendData'
+import { useAppSelector } from 'hooks/useAppSelector'
+import { trendDataSet } from 'states/trendData'
+
+import WeeklyDataChart from './WeeklyDataChart'
+import SelectButton from './SelectButton'
+import AdData from './AdData'
+
+import styles from './totalAdData.module.scss'
+
+interface ISelectedWeeklyData {
+  [key: string]: IData
+}
+
+interface IUnit {
+  [key: string]: string
+}
 
 const TotalAdData = () => {
-  const trendDataResult = useAppSelector(trendData)
+  const trendDataResult = useAppSelector(trendDataSet)
   const weeklyDataResult = useAppSelector(weeklyData)
   const selectedOptions = useAppSelector(selectedOption)
 
-  const dispatch = useAppDispatch()
+  const trendSumData = [
+    { title: 'ROAS', data: trendDataResult.roas, result: trendDataResult.tRoas },
+    { title: '광고비', data: trendDataResult.cost, result: trendDataResult.tCost },
+    { title: '노출수', data: trendDataResult.imp, result: trendDataResult.tImp },
+    { title: '클릭수', data: trendDataResult.click, result: trendDataResult.tClick },
+    { title: '전환수', data: trendDataResult.conv, result: trendDataResult.tConv },
+    { title: '매출', data: trendDataResult.convValue, result: trendDataResult.tConvValue },
+  ]
 
-  const data = useMemo(() => {
-    if (selectedOptions.firstOption === 'ROAS') {
-      return weeklyDataResult.ROAS
+  const chartUnit = useMemo(() => {
+    const unit: IUnit = {
+      ROAS: '%',
+      광고비: '만 원',
+      노출수: '만 회',
+      클릭수: '천 회',
+      전환수: '회',
+      매출: '만 회',
     }
-    if (selectedOptions.firstOption === '광고비') {
-      return weeklyDataResult.COST
+
+    return unit[selectedOptions.firstOption]
+  }, [selectedOptions])
+
+  const firstOptionData = useMemo(() => {
+    const selectedWeeklyData: ISelectedWeeklyData = {
+      ROAS: weeklyDataResult.ROAS,
+      광고비: weeklyDataResult.COST,
+      클릭수: weeklyDataResult.CLICK,
+      전환수: weeklyDataResult.CONV,
+      노출수: weeklyDataResult.IMP,
+      매출: weeklyDataResult.CONVVALUE,
     }
-    if (selectedOptions.firstOption === '클릭수') {
-      return weeklyDataResult.CLICK
-    }
-    if (selectedOptions.firstOption === '전환수') {
-      return weeklyDataResult.CONV
-    }
-    if (selectedOptions.firstOption === '노출수') {
-      return weeklyDataResult.IMP
-    }
-    if (selectedOptions.firstOption === '매출') {
-      return weeklyDataResult.CONVVALUE
-    }
-    return weeklyDataResult.CONVVALUE
+
+    return selectedWeeklyData[selectedOptions.firstOption]
   }, [selectedOptions, weeklyDataResult])
 
-  const secondData = useMemo(() => {
-    if (selectedOptions.secondOption === 'ROAS') {
-      return weeklyDataResult.ROAS
-    }
-    if (selectedOptions.secondOption === '광고비') {
-      return weeklyDataResult.COST
-    }
-    if (selectedOptions.secondOption === '클릭수') {
-      return weeklyDataResult.CLICK
-    }
-    if (selectedOptions.secondOption === '전환수') {
-      return weeklyDataResult.CONV
-    }
-    if (selectedOptions.secondOption === '노출수') {
-      return weeklyDataResult.IMP
-    }
-    if (selectedOptions.secondOption === '매출') {
-      return weeklyDataResult.CONVVALUE
+  const secondOptionData = useMemo(() => {
+    const selectedWeeklyData: ISelectedWeeklyData = {
+      ROAS: weeklyDataResult.ROAS,
+      광고비: weeklyDataResult.COST,
+      클릭수: weeklyDataResult.CLICK,
+      전환수: weeklyDataResult.CONV,
+      노출수: weeklyDataResult.IMP,
+      매출: weeklyDataResult.CONVVALUE,
+      선택안함: { value: [], color: '#C7C7C7' },
     }
 
-    if (selectedOptions.secondOption === '선택안함') {
-      return { value: [], color: 'red' }
-    }
-    return weeklyDataResult.CONVVALUE
+    return selectedWeeklyData[selectedOptions.secondOption]
   }, [selectedOptions, weeklyDataResult])
 
   return (
@@ -86,27 +78,28 @@ const TotalAdData = () => {
       <h2 className={styles.title}>통합광고현황</h2>
       <div className={styles.chartWrapper}>
         <div className={styles.chartDescription}>
-          <AdData title='ROAS' data={trendDataResult.roas} result={trendDataResult.tRoas} />
-          <AdData title='광고비' data={trendDataResult.cost} result={trendDataResult.tCost} />
-          <AdData title='노출수' data={trendDataResult.imp} result={trendDataResult.tImp} />
-          <AdData title='클릭수' data={trendDataResult.click} result={trendDataResult.tClick} />
-          <AdData title='전환수' data={trendDataResult.conv} result={trendDataResult.tConv} />
-          <AdData title='매출' data={trendDataResult.convValue} result={trendDataResult.tConvValue} />
+          {trendSumData.map((item) => (
+            <AdData key={`AdDataKey__${item.title}`} title={item.title} data={item.data} result={item.result} />
+          ))}
         </div>
+
         <div className={styles.chartOptionSelectors}>
-          <div className={styles.optionSelector}>
+          <div className={styles.optionSelectors}>
             <SelectButton defaultSelect={selectedOptions.firstOption} setSelectOption={setFirstOption} />
-            <SelectButton defaultSelect={selectedOptions.secondOption} setSelectOption={setSecondOption} temp />
+            <SelectButton
+              defaultSelect={selectedOptions.secondOption}
+              setSelectOption={setSecondOption}
+              isSecondOption
+            />
           </div>
+
           <select className={styles.termSelector}>
             <option>주간</option>
             <option>일별</option>
           </select>
         </div>
 
-        <div className={styles.chart}>
-          <TrendDataChart chartData={data} temp={secondData} />
-        </div>
+        <WeeklyDataChart firstOption={firstOptionData} secondOption={secondOptionData} unit={chartUnit} />
       </div>
     </section>
   )

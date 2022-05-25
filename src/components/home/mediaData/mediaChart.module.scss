@@ -1,0 +1,7 @@
+@use '/src/styles/constants/colors';
+
+.chartWrapper {
+  width: 950px;
+  height: 550px;
+  background-color: colors.$WHITE;
+}

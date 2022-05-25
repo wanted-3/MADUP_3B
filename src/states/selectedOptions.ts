@@ -1,14 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
+
 import type { RootState } from '.'
 
-export interface Options {
+interface IOptions {
   value: {
     firstOption: string
     secondOption: string
   }
 }
 
-const INITIAL_STATE: Options = {
+const INITIAL_STATE: IOptions = {
   value: {
     firstOption: 'ROAS',
     secondOption: '광고비',

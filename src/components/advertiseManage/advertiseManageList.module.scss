@@ -23,11 +23,17 @@
 
       .toggleButton {
         .selectedToggle {
+          position: relative;
           padding: 10px 30px 10px 20px;
           margin-bottom: 5px;
           text-align: left;
           border: 1px solid colors.$GRAYD;
           border-radius: 10px;
+
+          .arrowIcon {
+            position: absolute;
+            right: 0;
+          }
         }
 
         .offToggle {
@@ -37,20 +43,6 @@
         .onToggle {
           display: block;
           border: 1px solid colors.$GRAYD;
-        }
-
-        .toggleItem {
-          width: 100px;
-          border-bottom: 1px solid colors.$GRAYD;
-
-          button {
-            width: 100%;
-            padding: 10px 20px;
-
-            &:hover {
-              background-color: colors.$GRAYD;
-            }
-          }
         }
       }
 

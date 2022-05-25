@@ -1,13 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Ad from 'routes/ad'
-import Home from 'routes/home'
-import Layout from 'components/layout'
-import reportWebVitals from './reportWebVitals'
-import './styles/index.scss'
+import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
+import React from 'react'
+
+import reportWebVitals from './reportWebVitals'
 import { store } from './states'
+
+import AdvertiseManage from 'routes/advertiseManage'
+import Layout from 'components/layout'
+import Home from 'routes/home'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
@@ -17,7 +18,7 @@ root.render(
         <Routes>
           <Route element={<Layout />}>
             <Route path='/' element={<Home />} />
-            <Route path='ad' element={<Ad />} />
+            <Route path='advertiseManage' element={<AdvertiseManage />} />
           </Route>
         </Routes>
       </BrowserRouter>

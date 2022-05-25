@@ -17,7 +17,7 @@ export interface Idaily {
   date: string
 }
 
-export interface ITrendResult {
+interface ITrendResult {
   roas: number
   cost: number
   imp: number
@@ -32,7 +32,7 @@ export interface ITrendResult {
   tConvValue: number
 }
 
-export interface trendState {
+interface trendState {
   value: ITrendResult
 }
 
@@ -58,6 +58,7 @@ const trendSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     trendDataSum: (state, action) => {
+      state.value = INITIAL_STATE.value
       const actionData = action.payload.data.report.daily.filter(
         (el: Idaily) =>
           action.payload.startDate.valueOf() <= el.date.valueOf() &&
@@ -70,21 +71,39 @@ const trendSlice = createSlice({
       )
 
       actionData.forEach((el: ITrendResult) => {
-        state.value.roas = getPlus(state.value.roas, el.roas)
-        state.value.cost = getPlus(state.value.cost, el.cost)
-        state.value.imp = getPlus(state.value.imp, el.imp)
-        state.value.click = getPlus(state.value.click, el.click)
-        state.value.conv = getPlus(state.value.conv, el.conv)
-        state.value.convValue = getPlus(state.value.convValue, el.convValue)
+        state.value = {
+          roas: getPlus(state.value.roas, el.roas),
+          cost: getPlus(state.value.cost, el.cost),
+          imp: getPlus(state.value.imp, el.imp),
+          click: getPlus(state.value.click, el.click),
+          conv: getPlus(state.value.conv, el.conv),
+          convValue: getPlus(state.value.convValue, el.convValue),
+          tRoas: 0,
+          tCost: 0,
+          tImp: 0,
+          tClick: 0,
+          tConv: 0,
+          tConvValue: 0,
+        }
       })
+
       prevData.forEach((el: ITrendResult) => {
-        state.value.tRoas = getPlus(state.value.tRoas, el.roas)
-        state.value.tCost = getPlus(state.value.tCost, el.cost)
-        state.value.tImp = getPlus(state.value.tImp, el.imp)
-        state.value.tClick = getPlus(state.value.tClick, el.click)
-        state.value.tConv = getPlus(state.value.tConv, el.conv)
-        state.value.tConvValue = getPlus(state.value.tConvValue, el.convValue)
+        state.value = {
+          roas: state.value.roas,
+          cost: state.value.cost,
+          imp: state.value.imp,
+          click: state.value.click,
+          conv: state.value.conv,
+          convValue: state.value.convValue,
+          tRoas: getPlus(state.value.tRoas, el.roas),
+          tCost: getPlus(state.value.tCost, el.cost),
+          tImp: getPlus(state.value.tImp, el.imp),
+          tClick: getPlus(state.value.tClick, el.click),
+          tConv: getPlus(state.value.tConv, el.conv),
+          tConvValue: getPlus(state.value.tConvValue, el.convValue),
+        }
       })
+
       state.value.tRoas = getMinus(state.value.roas, state.value.tRoas)
       state.value.tCost = getMinus(state.value.cost, state.value.tCost)
       state.value.tImp = getMinus(state.value.imp, state.value.tImp)
@@ -92,12 +111,10 @@ const trendSlice = createSlice({
       state.value.tConv = getMinus(state.value.conv, state.value.tConv)
       state.value.tConvValue = getMinus(state.value.convValue, state.value.tConvValue)
     },
-
-    resetTrendData: () => INITIAL_STATE,
   },
 })
 
-export const { trendDataSum, resetTrendData } = trendSlice.actions
+export const { trendDataSum } = trendSlice.actions
 
 export default trendSlice.reducer
 

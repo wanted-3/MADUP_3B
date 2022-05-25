@@ -38,7 +38,7 @@ const systemSlice = createSlice({
         (item: ImediaData) => action.payload.startDate <= item.date && item.date <= action.payload.endDate
       )
 
-      actionData.map((item: ImediaData) => {
+      actionData.forEach((item: ImediaData) => {
         state.value[item.channel] = {
           cost: state.value[item.channel].cost + item.cost,
           convValue: state.value[item.channel].convValue + item.convValue,

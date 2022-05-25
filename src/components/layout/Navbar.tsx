@@ -8,7 +8,7 @@ const SERVICE_MENU = ['매드업', '서비스 추가하기']
 
 const Navbar = () => {
   return (
-    <nav className={styles.navigationBar}>
+    <aside className={styles.navigationBar}>
       <LogoIcon className={styles.logoIcon} />
       <hr className={styles.divideLine} />
       <div className={styles.dropDown}>
@@ -43,7 +43,7 @@ const Navbar = () => {
         <dt>레버는 함께 만들어갑니다.</dt>
         <dd>이용약관</dd>
       </dl>
-    </nav>
+    </aside>
   )
 }
 

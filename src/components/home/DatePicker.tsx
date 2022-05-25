@@ -1,17 +1,19 @@
 import ReactDatePicker from 'react-datepicker'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
+import dayjs from 'dayjs'
+import { useEffect, useMemo } from 'react'
+
+import { useAppSelector } from 'hooks/useAppSelector'
+import { useAppDispatch } from 'hooks/useAppDispatch'
+import { getMediaDataApi, getTrendDataApi } from 'services/getData'
+import { selectedDate, setStartDate } from 'states/storedDate'
+import { trendDataSum } from 'states/trendData'
+import { getWeeklyTrendData } from 'states/weeklyTrendData'
+import { getMediaData } from 'states/mediaData'
+
 import 'react-datepicker/dist/react-datepicker.css'
 import styles from './datePicker.module.scss'
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
-import timezone from 'dayjs/plugin/timezone'
-import { getMediaDataApi, getTrendDataApi } from 'services/temp'
-import { trendDataSum } from 'states/dailyTrendData'
-import { selectedDate, setStartDate } from 'states/storedDate'
-import { useAppDispatch } from 'hooks/useAppDispatch'
-import { useAppSelector } from 'hooks/useAppSelector'
-import { useEffect, useMemo } from 'react'
-import { temp } from 'states/weeklyTrendData'
-import { test } from 'states/mediaData'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -28,6 +30,13 @@ const DatePicker = () => {
     return new Date(defaultDate.endDate)
   }, [defaultDate.endDate])
 
+  const minDate = new Date('2022-02-08')
+  const maxDate = new Date('2022-04-14')
+
+  const handleSetDate = (date: Date) => {
+    dispatch(setStartDate(date))
+  }
+
   useEffect(() => {
     getTrendDataApi().then((res) => {
       dispatch(
@@ -40,7 +49,7 @@ const DatePicker = () => {
         })
       )
       dispatch(
-        temp({
+        getWeeklyTrendData({
           data: res.data,
           startDate: dayjs(StartDate).format('YYYY-MM-DD'),
           endDate: dayjs(EndDate).format('YYYY-MM-DD'),
@@ -52,7 +61,7 @@ const DatePicker = () => {
   useEffect(() => {
     getMediaDataApi().then((res) => {
       dispatch(
-        test({
+        getMediaData({
           data: res.data,
           startDate: dayjs(StartDate).format('YYYY-MM-DD'),
           endDate: dayjs(EndDate).format('YYYY-MM-DD'),
@@ -66,14 +75,12 @@ const DatePicker = () => {
       <ReactDatePicker
         className={styles.datePicker}
         selected={StartDate}
-        onChange={(date: Date) => {
-          dispatch(setStartDate(date))
-        }}
+        onChange={handleSetDate}
         selectsStart
         startDate={StartDate}
         endDate={EndDate}
-        minDate={new Date('2022-02-08')}
-        maxDate={new Date('2022-04-14')}
+        minDate={minDate}
+        maxDate={maxDate}
         dateFormat='yyyy년 MM월 dd일'
       />
       <p className={styles.p}>~</p>

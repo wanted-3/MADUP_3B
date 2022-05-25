@@ -1,12 +1,14 @@
-import AdList from 'components/ad/AdList'
-import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useMount } from 'react-use'
-import { getAdListApi } from 'services/temp'
+
+import { useAppDispatch } from 'hooks/useAppDispatch'
 import { mountAdListData } from 'states/adListData'
+import { getAdListApi } from 'services/getData'
 
-import styles from './ad.module.scss'
+import AdvertiseManageList from 'components/advertiseManage/AdvertiseManageList'
 
-const Ad = () => {
+import styles from './advertiseManage.module.scss'
+
+const AdvertiseManage = () => {
   const dispatch = useAppDispatch()
 
   useMount(() => {
@@ -18,9 +20,9 @@ const Ad = () => {
   return (
     <div className={styles.ad}>
       <h1 className={styles.title}>광고관리</h1>
-      <AdList />
+      <AdvertiseManageList />
     </div>
   )
 }
 
-export default Ad
+export default AdvertiseManage

@@ -1,4 +1,4 @@
-export { ReactComponent as LogoIcon } from './temp.svg'
+export { ReactComponent as LogoIcon } from './logo.svg'
 export { ReactComponent as ArrowIcon } from './arrow.svg'
 export { ReactComponent as BellIcon } from './bell.svg'
 export { ReactComponent as CircleIcon } from './circle.svg'

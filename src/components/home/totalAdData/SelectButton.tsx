@@ -1,8 +1,11 @@
-import { ArrowIcon, CircleIcon } from 'assets/svgs'
 import { useState, MouseEvent } from 'react'
-import styles from './selectButton.module.scss'
-import { useAppDispatch } from 'hooks/useAppDispatch'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
+
+import { useAppDispatch } from 'hooks/useAppDispatch'
+
+import { ArrowIcon, CircleIcon } from 'assets/svgs'
+
+import styles from './selectButton.module.scss'
 
 const COLORS = [
   { name: 'ROAS', color: '#4FADF7' },
@@ -15,10 +18,10 @@ const COLORS = [
 interface Props {
   defaultSelect: string
   setSelectOption: ActionCreatorWithPayload<any, string>
-  temp?: boolean
+  isSecondOption?: boolean
 }
 
-const SelectButton = ({ defaultSelect, setSelectOption, temp }: Props) => {
+const SelectButton = ({ defaultSelect, setSelectOption, isSecondOption }: Props) => {
   const dispatch = useAppDispatch()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -51,7 +54,7 @@ const SelectButton = ({ defaultSelect, setSelectOption, temp }: Props) => {
             </li>
           ))}
 
-          {temp && (
+          {isSecondOption && (
             <li className={styles.option}>
               <button type='button' data-value='선택안함' onClick={handleSelect} className={styles.noSelect}>
                 선택안함

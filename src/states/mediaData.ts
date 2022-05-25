@@ -1,20 +1,11 @@
-import { createSlice, current } from '@reduxjs/toolkit'
-import { ImediaData } from 'services/temp'
+import { createSlice } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
+
+import { ImediaData } from 'services/getData'
 
 import type { RootState } from '.'
 
-const INITIAL_STATE = {
-  value: {
-    facebook: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
-    naver: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
-    google: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
-    kakao: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
-    all: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
-  },
-}
-
-export interface UseNumValue {
+export interface IUseNumValue {
   cost: number
   convValue: number
   roas: number
@@ -27,15 +18,25 @@ export interface UseNumValue {
 
 export interface SystemState {
   value: {
-    [key: string]: UseNumValue
+    [key: string]: IUseNumValue
   }
+}
+
+const INITIAL_STATE = {
+  value: {
+    facebook: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    naver: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    google: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    kakao: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+    all: { cost: 0, convValue: 0, roas: 0, imp: 0, click: 0, ctr: 0, cpc: 0, cvr: 0 },
+  },
 }
 
 const systemSlice = createSlice({
   name: 'mediaData',
   initialState: INITIAL_STATE as SystemState,
   reducers: {
-    test: (state, action) => {
+    getMediaData: (state, action) => {
       state.value.all = INITIAL_STATE.value.all
       state.value.facebook = INITIAL_STATE.value.facebook
       state.value.google = INITIAL_STATE.value.google
@@ -73,7 +74,7 @@ const systemSlice = createSlice({
   },
 })
 
-export const { test } = systemSlice.actions
+export const { getMediaData } = systemSlice.actions
 
 export default systemSlice.reducer
 

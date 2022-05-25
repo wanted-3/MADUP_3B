@@ -1,5 +1,7 @@
-import { DecrementIcon, IncrementIcon } from 'assets/svgs'
 import BigNumber from 'bignumber.js'
+
+import { DecrementIcon, IncrementIcon } from 'assets/svgs'
+
 import styles from './adData.module.scss'
 
 interface Props {
@@ -21,7 +23,7 @@ const formatDataFunc = (dataTitle: string, dataNumber: number) => {
     노출수: `${new BigNumber(dataNumber).multipliedBy(0.0001).toFixed(1)}만 회`,
     클릭수: `${new BigNumber(dataNumber).multipliedBy(0.001).toFormat(1)}천 회`,
     전환수: `${dataNumber} 회`,
-    매출: `${Number(new BigNumber(dataNumber).multipliedBy(0.0001).toFixed(0)).toLocaleString()}만 회`,
+    매출: `${Number(new BigNumber(dataNumber).multipliedBy(0.0001).toFixed(0)).toLocaleString()}만 원`,
   }
   return unitName[dataTitle]
 }

@@ -1,8 +1,10 @@
-import { UseNumValue } from 'states/mediaData'
-import styles from './mediaSumData.module.scss'
-import { cx } from 'styles'
+import cx from 'classnames'
 
-interface MediaSumDataProps extends UseNumValue {
+import type { IUseNumValue } from 'states/mediaData'
+
+import styles from './mediaSumData.module.scss'
+
+interface MediaSumDataProps extends IUseNumValue {
   title: string
 }
 

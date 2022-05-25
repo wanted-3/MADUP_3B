@@ -1,15 +1,16 @@
-import { createSlice, current } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import dayjs from 'dayjs'
+
 import type { RootState } from '.'
 
-export interface Date {
+interface IDate {
   value: {
     startDate: string
     endDate: string
   }
 }
 
-const INITIAL_STATE: Date = {
+const INITIAL_STATE: IDate = {
   value: {
     startDate: '2022-02-08',
     endDate: '2022-02-14',
@@ -25,7 +26,6 @@ const systemSlice = createSlice({
       const endDate = dayjs(startDate).add(6, 'd').format('YYYY-MM-DD')
       state.value.startDate = startDate
       state.value.endDate = endDate
-      // console.log(current(state.value))
     },
   },
 })

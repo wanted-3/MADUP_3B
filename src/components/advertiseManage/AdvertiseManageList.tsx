@@ -1,10 +1,14 @@
+import { MouseEvent, useMemo, useState } from 'react'
+import cx from 'classnames'
+
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
-import { MouseEvent, useMemo, useState } from 'react'
+
 import { ChangeAdListData, selectadListData, selectedState } from 'states/adListData'
-import cx from 'classnames'
-import AdItem from './AdItem'
-import styles from './adList.module.scss'
+import styles from './advertiseManageList.module.scss'
+import AdvertiseManageItem from './AdvertiseManageItem'
+import AdvertiseStateToggle from './AdvertiseStateToggle'
+import { ArrowIcon } from 'assets/svgs'
 
 const AD_STATE_GROUP = [
   { name: '전체 광고', state: 'all' },
@@ -12,7 +16,7 @@ const AD_STATE_GROUP = [
   { name: '중단 광고', state: 'ended' },
 ]
 
-const AdList = () => {
+const AdvertiseManageList = () => {
   const [toggle, setToggle] = useState(false)
 
   const dispatch = useAppDispatch()
@@ -29,13 +33,13 @@ const AdList = () => {
   }
 
   const adListStateName = useMemo(() => {
-    let name
+    let adStateName
 
-    if (adListState === 'all') name = '전체 광고'
-    if (adListState === 'active') name = '진행 광고'
-    if (adListState === 'ended') name = '중단 광고'
+    if (adListState === 'all') adStateName = '전체 광고'
+    if (adListState === 'active') adStateName = '진행 광고'
+    if (adListState === 'ended') adStateName = '중단 광고'
 
-    return name
+    return adStateName
   }, [adListState])
 
   return (
@@ -44,16 +48,13 @@ const AdList = () => {
         <div className={styles.itemTop}>
           <div className={styles.toggleButton}>
             <button type='button' className={styles.selectedToggle} onClick={handleToggle}>
-              {adListStateName}
+              <span>{adListStateName}</span>
+              <ArrowIcon className={styles.arrowIcon} />
             </button>
 
             <ul className={cx(styles.offToggle, { [styles.onToggle]: toggle })}>
               {AD_STATE_GROUP.map((item) => (
-                <li key={item.name} className={styles.toggleItem}>
-                  <button type='button' value={item.state} onClick={handleAdStateClick}>
-                    {item.name}
-                  </button>
-                </li>
+                <AdvertiseStateToggle key={`ToggleKey__${item.name}`} item={item} onClick={handleAdStateClick} />
               ))}
             </ul>
           </div>
@@ -64,8 +65,8 @@ const AdList = () => {
         </div>
 
         <div className={styles.itemGrid}>
-          {adListData.map((ad) => (
-            <AdItem key={ad.id} ad={ad} />
+          {adListData.map((item) => (
+            <AdvertiseManageItem key={item.id} advertiseItem={item} />
           ))}
         </div>
       </div>
@@ -73,4 +74,4 @@ const AdList = () => {
   )
 }
 
-export default AdList
+export default AdvertiseManageList

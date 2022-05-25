@@ -12,6 +12,12 @@
     margin: 60px 40px;
   }
 
+  > h3 {
+    padding: 13px 0 13px 20px;
+    font-size: 12px;
+    color: colors.$TEXT_GRAY;
+  }
+
   .divideLine {
     align-self: center;
     width: 240px;

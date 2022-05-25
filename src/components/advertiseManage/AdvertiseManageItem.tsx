@@ -1,14 +1,15 @@
 import BigNumber from 'bignumber.js'
 import dayjs from 'dayjs'
 import { useMemo } from 'react'
-import { Iads } from 'states/adListData'
-import styles from './adItem.module.scss'
+
+import type { IAds } from 'states/adListData'
+import styles from './advertiseManageItem.module.scss'
 
 interface AdItemProps {
-  ad: Iads
+  advertiseItem: IAds
 }
 
-const adMoney = (value: number) => {
+const adMoneyUnitFunc = (value: number) => {
   const BigValue = new BigNumber(value)
   let answer
 
@@ -24,13 +25,12 @@ const adMoney = (value: number) => {
   }
 
   if (value < 10000) {
-    const temp = BigValue.dividedToIntegerBy(1000)
-    answer = `${temp}천원`
+    answer = `${BigValue.dividedToIntegerBy(1000)}천원`
   }
   return answer
 }
 
-const AdItem = ({ ad }: AdItemProps) => {
+const AdvertiseManageItem = ({ advertiseItem }: AdItemProps) => {
   const {
     adType,
     title,
@@ -39,7 +39,7 @@ const AdItem = ({ ad }: AdItemProps) => {
     status,
     budget,
     report: { convValue, cost, roas },
-  } = ad
+  } = advertiseItem
 
   const adTitle = useMemo(() => {
     let adTypeName
@@ -66,6 +66,10 @@ const AdItem = ({ ad }: AdItemProps) => {
     return status === 'ended' ? `${startDay}(${endDay})` : startDay
   }, [status, startDate, endDate])
 
+  const budgetUnit = adMoneyUnitFunc(budget)
+  const convValueUnit = adMoneyUnitFunc(convValue)
+  const costUnit = adMoneyUnitFunc(cost)
+
   return (
     <div className={styles.containerWrapper}>
       <h2 className={styles.title}>{adTitle}</h2>
@@ -82,7 +86,7 @@ const AdItem = ({ ad }: AdItemProps) => {
 
         <div>
           <dt>일 희망 예산</dt>
-          <dd>{adMoney(budget)}</dd>
+          <dd>{budgetUnit}</dd>
         </div>
 
         <div>
@@ -92,12 +96,12 @@ const AdItem = ({ ad }: AdItemProps) => {
 
         <div>
           <dt>매출</dt>
-          <dd>{adMoney(convValue)}</dd>
+          <dd>{convValueUnit}</dd>
         </div>
 
         <div>
           <dt>광고 비용</dt>
-          <dd>{adMoney(cost)}</dd>
+          <dd>{costUnit}</dd>
         </div>
       </dl>
 
@@ -108,4 +112,4 @@ const AdItem = ({ ad }: AdItemProps) => {
   )
 }
 
-export default AdItem
+export default AdvertiseManageItem

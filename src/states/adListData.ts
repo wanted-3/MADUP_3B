@@ -1,8 +1,8 @@
-import { createSlice, current } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 import type { RootState } from '.'
 
-export interface Iads {
+export interface IAds {
   id: number
   adType: string
   title: string
@@ -21,8 +21,8 @@ export interface SystemState {
   value: {
     count: number
     state: 'all' | 'ended' | 'active'
-    AllAds: Iads[]
-    filteredAds: Iads[]
+    AllAds: IAds[]
+    filteredAds: IAds[]
   }
 }
 

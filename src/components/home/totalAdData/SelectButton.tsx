@@ -5,19 +5,20 @@ import { useAppDispatch } from 'hooks/useAppDispatch'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 
 const COLORS = [
-  ['ROAS', '#4FADF7'],
-  ['광고비', '#AC8AF8'],
-  ['노출수', '#F9F871'],
-  ['클릭수', '#F88F6F'],
-  ['전환수', '#85DA47'],
-  ['매출', '#7FA2FF'],
+  { name: 'ROAS', color: '#4FADF7' },
+  { name: '광고비', color: '#AC8AF8' },
+  { name: '노출수', color: '#D3A518' },
+  { name: '클릭수', color: '#F88F6F' },
+  { name: '전환수', color: '#85DA47' },
+  { name: '매출', color: '#434656' },
 ]
 interface Props {
   defaultSelect: string
   setSelectOption: ActionCreatorWithPayload<any, string>
+  temp?: boolean
 }
 
-const SelectButton = ({ defaultSelect, setSelectOption }: Props) => {
+const SelectButton = ({ defaultSelect, setSelectOption, temp }: Props) => {
   const dispatch = useAppDispatch()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -25,7 +26,7 @@ const SelectButton = ({ defaultSelect, setSelectOption }: Props) => {
     setIsOpen((prev) => !prev)
   }
 
-  const handleSelect = (e: MouseEvent<HTMLLIElement>) => {
+  const handleSelect = (e: MouseEvent<HTMLButtonElement>) => {
     const currentValue = e.currentTarget.dataset.value
     dispatch(setSelectOption(currentValue))
     setIsOpen((prev) => !prev)
@@ -34,31 +35,29 @@ const SelectButton = ({ defaultSelect, setSelectOption }: Props) => {
   return (
     <div className={styles.selectBox}>
       <button className={styles.selectedOption} type='button' onClick={handleListOpen}>
-        <CircleIcon
-          className={styles.circle}
-          style={{ fill: COLORS[COLORS.map((v) => v[0]).findIndex((v) => v === defaultSelect)][1] }}
-        />
+        <CircleIcon style={{ fill: COLORS.find((item) => item.name === defaultSelect)?.color }} />
         <span className={styles.selectedTitle}>{defaultSelect}</span>
         <ArrowIcon />
       </button>
 
       {isOpen && (
         <ul className={styles.optionList}>
-          {COLORS.map((v, idx) => {
-            const key = `option__${idx}`
-            return (
-              <li key={key} data-value={v[0]} className={styles.option} onClick={handleSelect} role='presentation'>
-                <CircleIcon style={{ fill: v[1] }} />
-                <span className={styles.title}>{v[0]}</span>
-              </li>
-            )
-          })}
-
-          {/* {setSecondOption && (
-            <li className={styles.option} onClick={handleSelect} role='presentation'>
-              <span className={styles.noSelect}>선택안함</span>
+          {COLORS.map((v) => (
+            <li key={`option-${v.name}`} className={styles.option}>
+              <button type='button' data-value={v.name} onClick={handleSelect}>
+                <CircleIcon style={{ fill: v.color }} />
+                <span className={styles.title}>{v.name}</span>
+              </button>
             </li>
-          )} */}
+          ))}
+
+          {temp && (
+            <li className={styles.option}>
+              <button type='button' data-value='선택안함' onClick={handleSelect} className={styles.noSelect}>
+                선택안함
+              </button>
+            </li>
+          )}
         </ul>
       )}
     </div>

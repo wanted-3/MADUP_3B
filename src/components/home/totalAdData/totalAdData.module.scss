@@ -1,6 +1,6 @@
 .totalAdData {
   width: 100%;
-  height: 743px;
+  height: 100%;
 
   .title {
     padding-bottom: 20px;
@@ -12,8 +12,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 1039px;
-    height: 654px;
+    width: 100%;
     padding: 40px;
     background-color: white;
     border-radius: 20px;
@@ -28,7 +27,7 @@
       display: flex;
       justify-content: space-between;
 
-      .optionSelector {
+      .optionselector {
         display: flex;
 
         > :nth-child(1) {
@@ -50,8 +49,8 @@
     }
 
     .chart {
-      height: 500px;
-      background-color: pink;
+      height: 100%;
+      padding: 40px;
     }
   }
 }

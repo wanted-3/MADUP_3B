@@ -1,5 +1,6 @@
 import { UseNumValue } from 'states/mediaData'
 import styles from './mediaSumData.module.scss'
+import { cx } from 'styles'
 
 interface MediaSumDataProps extends UseNumValue {
   title: string
@@ -7,7 +8,7 @@ interface MediaSumDataProps extends UseNumValue {
 
 const MediaSumData = ({ title, cost, convValue, roas, imp, click, ctr, cpc }: MediaSumDataProps) => {
   return (
-    <tr className={styles.mediaSumWrap}>
+    <tr className={cx(styles.mediaSumWrap, { [styles.total]: title === '합계' })}>
       <td className={styles.snsTitle}>{title}</td>
       <td className={styles.snsDetail}>{cost}</td>
       <td className={styles.snsDetail}>{convValue}</td>

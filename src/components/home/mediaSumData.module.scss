@@ -1,18 +1,25 @@
 @use '/src/styles/constants/colors';
 
-.snsReports {
+.mediaSumWrap {
   display: flex;
   justify-content: space-between;
-  width: 2000px;
-  padding: 15px;
-  border-bottom: 1px solid colors.$GRAYA;
+  width: 1500px;
+  padding: 14px;
+  border-bottom: 1px solid colors.$GRAYD;
+
+  td {
+    :first-child {
+      display: none;
+    }
+  }
 }
 
 .snsDetail {
-  width: 150px;
+  width: 110px;
   text-align: right;
 }
 
 .snsTitle {
-  width: 65px;
+  width: 110px;
+  text-align: left;
 }

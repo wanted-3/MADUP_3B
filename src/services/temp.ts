@@ -6,6 +6,7 @@ const mediaDataUrl = '/data/wanted_FE-media-channel-data-set.json'
 
 export interface ImediaData {
   channel: string
+  date: string
   click: number
   convValue: number
   cost: number
@@ -13,7 +14,6 @@ export interface ImediaData {
   cpc: number
   ctr: number
   cvr: number
-  date: string
   imp: number
   roas: number
 }

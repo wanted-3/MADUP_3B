@@ -7,16 +7,16 @@ interface MediaSumDataProps extends UseNumValue {
 
 const MediaSumData = ({ title, cost, convValue, roas, imp, click, ctr, cpc }: MediaSumDataProps) => {
   return (
-    <div className={styles.snsReports}>
-      <span className={styles.snsTitle}>{title}</span>
-      <span className={styles.snsDetail}>{cost}</span>
-      <span className={styles.snsDetail}>{convValue}</span>
-      <span className={styles.snsDetail}>{roas}</span>
-      <span className={styles.snsDetail}>{imp}</span>
-      <span className={styles.snsDetail}>{click}</span>
-      <span className={styles.snsDetail}>{ctr}</span>
-      <span className={styles.snsDetail}>{cpc}</span>
-    </div>
+    <tr className={styles.mediaSumWrap}>
+      <td className={styles.snsTitle}>{title}</td>
+      <td className={styles.snsDetail}>{cost}</td>
+      <td className={styles.snsDetail}>{convValue}</td>
+      <td className={styles.snsDetail}>{roas}</td>
+      <td className={styles.snsDetail}>{imp}</td>
+      <td className={styles.snsDetail}>{click}</td>
+      <td className={styles.snsDetail}>{ctr}</td>
+      <td className={styles.snsDetail}>{cpc}</td>
+    </tr>
   )
 }
 

@@ -26,7 +26,7 @@ const Home = () => {
       </header>
       <main className={styles.main}>
         <TotalAdData />
-        {/* <MediaData /> */}
+        <MediaData />
       </main>
     </div>
   )

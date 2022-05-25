@@ -16,9 +16,7 @@
   justify-content: center;
   width: 1000px;
   height: 900px;
-  padding: 40px;
-  background-color: white;
-  background-color: colors.$GRAYA;
+  background-color: colors.$WHITE;
   border-radius: 20px;
 }
 
@@ -28,13 +26,24 @@
   background-color: colors.$WHITE;
 }
 
+.snsListWrap {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  padding: 10px;
+}
+
+.snsList {
+  margin-right: 20px;
+}
+
 .trendDetailWrap {
   width: 950px;
   height: 310px;
   margin-top: 50px;
   overflow: scroll;
   overflow-y: hidden;
-  background-color: colors.$GRAYE;
+  background-color: colors.$WHITE;
 }
 
 .trendDetailWrap::-webkit-scrollbar {
@@ -46,25 +55,21 @@
   border-radius: 10px;
 }
 
-.trendReportList {
+.trendIndex {
   display: flex;
   justify-content: space-between;
-  width: 2000px;
+  width: 1500px;
   padding: 15px;
-  color: colors.$GRAYA;
-  text-align: right;
-  border-top: 1px solid colors.$GRAYA;
-  border-bottom: 1px solid colors.$GRAYA;
+  border-top: 1px solid colors.$GRAYD;
+  border-bottom: 1px solid colors.$GRAYD;
 
-  span {
-    width: 150px;
+  th {
+    width: 110px;
+    color: colors.$GRAYA;
+    text-align: right;
   }
 }
 
-.chartTitle {
-  margin-left: 190px;
-}
-
 .total {
-  color: colors.$BLUE;
+  color: colors.$PRIMARY;
 }

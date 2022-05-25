@@ -74,6 +74,10 @@ const TotalAdData = () => {
     if (selectedOptions.secondOption === '매출') {
       return weeklyDataResult.CONVVALUE
     }
+
+    if (selectedOptions.secondOption === '선택안함') {
+      return { value: [], color: 'red' }
+    }
     return weeklyDataResult.CONVVALUE
   }, [selectedOptions, weeklyDataResult])
 
@@ -92,7 +96,7 @@ const TotalAdData = () => {
         <div className={styles.chartOptionSelectors}>
           <div className={styles.optionSelector}>
             <SelectButton defaultSelect={selectedOptions.firstOption} setSelectOption={setFirstOption} />
-            <SelectButton defaultSelect={selectedOptions.secondOption} setSelectOption={setSecondOption} />
+            <SelectButton defaultSelect={selectedOptions.secondOption} setSelectOption={setSecondOption} temp />
           </div>
           <select className={styles.termSelector}>
             <option>주간</option>

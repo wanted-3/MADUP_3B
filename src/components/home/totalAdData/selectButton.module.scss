@@ -30,16 +30,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 10px 5px;
-      border-radius: 10px;
 
-      &:hover {
-        background-color: colors.$GRAYE;
-      }
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 100%;
+        padding: 10px 5px;
+        border-radius: 10px;
 
-      .title {
-        width: 60px;
-        text-align: center;
+        .title {
+          width: 50px;
+        }
+
+        &:hover {
+          background-color: colors.$GRAYE;
+        }
       }
     }
   }

@@ -3,7 +3,6 @@
 .mediaSumWrap {
   display: flex;
   justify-content: space-between;
-  width: 1500px;
   padding: 14px;
   border-bottom: 1px solid colors.$GRAYD;
 
@@ -15,12 +14,12 @@
 }
 
 .snsDetail {
-  width: 110px;
+  width: 70px;
   text-align: right;
 }
 
 .snsTitle {
-  width: 110px;
+  width: 70px;
   text-align: left;
 }
 

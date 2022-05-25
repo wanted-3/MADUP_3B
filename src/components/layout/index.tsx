@@ -8,14 +8,14 @@ const Layout = () => {
     <div className={styles.appLayout}>
       <Navbar />
       <main className={styles.main}>
-        <header className={styles.header}>
+        <nav className={styles.navBar}>
           <BellIcon className={styles.bell} />
           <SettingIcon className={styles.setting} />
           <div className={styles.user}>
             <UserIcon />
             <span>3B팀 님</span>
           </div>
-        </header>
+        </nav>
         <Outlet />
       </main>
     </div>

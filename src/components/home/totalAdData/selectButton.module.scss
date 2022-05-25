@@ -11,18 +11,22 @@
     width: 100%;
     padding: 5px 2px 5px 20px;
     margin-bottom: 3px;
+    background-color: white;
     border: 1.2px solid colors.$GRAYD;
     border-radius: 10px;
 
     .selectedTitle {
       width: 50px;
       font-size: 14px;
-      background-color: white;
     }
   }
 
   .optionList {
+    position: absolute;
+    z-index: 99;
+    width: 120px;
     cursor: pointer;
+    background-color: white;
     border: 1.2px solid colors.$GRAYD;
     border-radius: 10px;
 

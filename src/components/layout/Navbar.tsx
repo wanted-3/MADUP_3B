@@ -13,7 +13,6 @@ const Navbar = () => {
       <hr className={styles.divideLine} />
       <div className={styles.dropDown}>
         <h3>서비스</h3>
-
         <Dropdown>
           {SERVICE_MENU.map((item) => (
             <option key={`DropdownKey_${item}`} value={item}>

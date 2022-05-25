@@ -17,7 +17,7 @@ const Ad = () => {
 
   return (
     <div className={styles.ad}>
-      <h1 className={styles.title}>대시보드</h1>
+      <h1 className={styles.title}>광고관리</h1>
       <AdList />
     </div>
   )

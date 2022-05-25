@@ -11,21 +11,6 @@ import TrendDataChart from './TrendDataChart'
 import { selectedOption, setFirstOption, setSecondOption } from 'states/selectedOptions'
 import { useMemo } from 'react'
 
-// 매출 = ROAS / 100 * 광고비
-// {
-//   "imp": 51479, // 노출 수
-//   "click": 559, // 클릭 수
-//   "cost": 371790, // 광고비
-//   "conv": 37, // 전환 수
-//   "convValue": 3668610,
-//   "ctr": 1.09, // 클릭률
-//   "cvr": 6.62, // 전환율
-//   "cpc": 665.1, // click per click
-//   "cpa": 10048.38, // click per action
-//   "roas": 986.74, // 광고 지출 대비 수익률
-//   "date": "2022-02-01"
-// },
-
 const TotalAdData = () => {
   const trendDataResult = useAppSelector(trendData)
   const weeklyDataResult = useAppSelector(weeklyData)
@@ -94,7 +79,7 @@ const TotalAdData = () => {
           <AdData title='매출' data={trendDataResult.convValue} result={trendDataResult.tConvValue} />
         </div>
         <div className={styles.chartOptionSelectors}>
-          <div className={styles.optionSelector}>
+          <div className={styles.optionSelectors}>
             <SelectButton defaultSelect={selectedOptions.firstOption} setSelectOption={setFirstOption} />
             <SelectButton defaultSelect={selectedOptions.secondOption} setSelectOption={setSecondOption} temp />
           </div>

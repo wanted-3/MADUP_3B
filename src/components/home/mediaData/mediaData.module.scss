@@ -4,69 +4,58 @@
   width: 100%;
 
   .title {
+    padding-bottom: 20px;
     font-size: large;
     font-weight: 600;
   }
-}
 
-.trendWrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 1000px;
-  height: 900px;
-  background-color: colors.$WHITE;
-  border-radius: 20px;
-}
+  .trendWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 1040px;
+    height: 900px;
+    background-color: colors.$WHITE;
+    border-radius: 20px;
 
-.trendChart {
-  width: 950px;
-  height: 550px;
-  background-color: colors.$WHITE;
-}
+    .trendChart {
+      width: 90%;
+      max-width: 800px;
+      height: 100%;
+    }
 
-.snsListWrap {
-  display: flex;
-  justify-content: end;
-  width: 100%;
-  padding: 10px;
-}
+    .trendDetailWrap {
+      width: 80%;
+      height: 60%;
+      overflow: scroll;
+      overflow-y: hidden;
+      font-size: 12px;
 
-.snsList {
-  margin-right: 20px;
-}
+      &::-webkit-scrollbar {
+        width: 60px;
+      }
 
-.trendDetailWrap {
-  width: 950px;
-  height: 310px;
-  margin-top: 50px;
-  overflow: scroll;
-  overflow-y: hidden;
-  background-color: colors.$WHITE;
-}
+      &::-webkit-scrollbar-thumb {
+        background-color: #d1d8dc;
+        border-radius: 10px;
+      }
+    }
 
-.trendDetailWrap::-webkit-scrollbar {
-  width: 60px;
-}
+    .trendIndex {
+      display: flex;
+      justify-content: space-between;
+      width: 1000px;
+      padding: 15px;
+      border-top: 1px solid colors.$GRAYD;
+      border-bottom: 1px solid colors.$GRAYD;
 
-.trendDetailWrap::-webkit-scrollbar-thumb {
-  background-color: #d1d8dc;
-  border-radius: 10px;
-}
-
-.trendIndex {
-  display: flex;
-  justify-content: space-between;
-  width: 1500px;
-  padding: 15px;
-  border-top: 1px solid colors.$GRAYD;
-  border-bottom: 1px solid colors.$GRAYD;
-
-  th {
-    width: 110px;
-    color: colors.$GRAYA;
-    text-align: right;
+      th {
+        width: 70px;
+        color: colors.$GRAYA;
+        text-align: right;
+      }
+    }
   }
 }
 

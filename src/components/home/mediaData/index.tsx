@@ -2,15 +2,7 @@ import styles from './mediaData.module.scss'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { selectadMediaData } from 'states/mediaData'
 import MediaSumData from './MediaSumData'
-import { CircleIcon } from 'assets/svgs'
 import MediaChart from './MediaChart'
-
-const SNS_COLORS = [
-  { name: '페이스북', color: '#7FA2FF' },
-  { name: '구글', color: '#AC8AF8' },
-  { name: '네이버', color: '#85DA47' },
-  { name: '카카오', color: '#F9F871' },
-]
 
 const MediaData = () => {
   const mediaData = useAppSelector(selectadMediaData)
@@ -22,16 +14,6 @@ const MediaData = () => {
         <div className={styles.trendChart}>
           <MediaChart />
         </div>
-
-        <ul className={styles.snsListWrap}>
-          {SNS_COLORS.map((item) => (
-            <li key={`snsList-${item.name}`} data-value={item.name} className={styles.snsList} role='presentation'>
-              <CircleIcon style={{ fill: item.color }} />
-              <span className={styles.title}>{item.name}</span>
-            </li>
-          ))}
-        </ul>
-
         <div className={styles.trendDetailWrap}>
           <table>
             <thead>

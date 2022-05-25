@@ -9,6 +9,7 @@ import { store } from './states'
 import AdvertiseManage from 'routes/advertiseManage'
 import Layout from 'components/layout'
 import Home from 'routes/home'
+import './styles/index.scss'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(

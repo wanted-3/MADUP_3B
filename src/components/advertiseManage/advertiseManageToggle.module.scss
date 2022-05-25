@@ -1,7 +1,8 @@
 @use '/src/styles/constants/colors';
 
 .toggleItem {
-  width: 100px;
+  width: 100%;
+  background-color: white;
   border-bottom: 1px solid colors.$GRAYD;
 
   button {

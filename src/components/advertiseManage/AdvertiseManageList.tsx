@@ -50,7 +50,7 @@ const AdvertiseManageList = () => {
         <div className={styles.itemTop}>
           <div className={styles.toggleButton}>
             <button type='button' className={styles.selectedToggle} onClick={handleToggle}>
-              {adListStateName}
+              <span>{adListStateName}</span>
               <ArrowIcon className={styles.arrowIcon} />
             </button>
 

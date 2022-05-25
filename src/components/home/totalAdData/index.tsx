@@ -33,17 +33,30 @@ const TotalAdData = () => {
     { title: '매출', data: trendDataResult.convValue, result: trendDataResult.tConvValue },
   ]
 
-  const chartUnit = useMemo(() => {
+  const firstChartUnit = useMemo(() => {
     const unit: IUnit = {
       ROAS: '%',
       광고비: '만 원',
       노출수: '만 회',
       클릭수: '천 회',
       전환수: '회',
-      매출: '만 회',
+      매출: '만 원',
     }
 
     return unit[selectedOptions.firstOption]
+  }, [selectedOptions])
+
+  const secondChartUnit = useMemo(() => {
+    const unit: IUnit = {
+      ROAS: '%',
+      광고비: '만 원',
+      노출수: '만 회',
+      클릭수: '천 회',
+      전환수: '회',
+      매출: '만 원',
+    }
+
+    return unit[selectedOptions.secondOption]
   }, [selectedOptions])
 
   const firstOptionData = useMemo(() => {
@@ -97,9 +110,13 @@ const TotalAdData = () => {
             <option>일별</option>
           </select>
         </div>
-        <div className={styles.chart}>
-          <WeeklyDataChart firstOption={firstOptionData} secondOption={secondOptionData} unit={chartUnit} />
-        </div>
+
+        <WeeklyDataChart
+          firstOption={firstOptionData}
+          secondOption={secondOptionData}
+          firstUnit={firstChartUnit}
+          secondUnit={secondChartUnit}
+        />
       </div>
     </section>
   )
